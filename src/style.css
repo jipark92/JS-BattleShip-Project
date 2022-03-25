@@ -25,7 +25,15 @@ body {
     justify-content: center;
     align-items: center;
     transition: 500ms ease-in-out;
-    margin: 2rem;
+    margin: 1.5rem;
+}
+
+.intruction-container {
+    transition: 500ms ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .board-container {
@@ -35,6 +43,7 @@ body {
     min-height: 75%;
     max-width: 100%;
     gap: 5rem;
+    margin: 1.5rem;
     flex-wrap: wrap;
     transition: 500ms ease-in-out;
 }
@@ -70,7 +79,7 @@ body {
 }
 
 .computer-grid {
-border: 1px solid black;
+    border: 1px solid black;
 }
 
 .button-container {
