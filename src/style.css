@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 
-body{
+body {
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -15,7 +15,7 @@ body{
     align-items: center;
 }
 
-.container{
+.container {
     min-height: 98%;
     min-width: 100%;
 }
@@ -42,9 +42,9 @@ body{
     flex-wrap: wrap;
 }
 
-.player p{
+.player p {
     text-align: center;
-    font-size: 1.rem;
+    font-size: 1rem;
     padding: 1rem;
     font-weight: 700;
 }
@@ -55,7 +55,6 @@ body{
     padding: 1rem;
     font-weight: 700;
 }
-
 
 .player-board {
     display: grid;
