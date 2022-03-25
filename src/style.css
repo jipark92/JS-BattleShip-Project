@@ -24,8 +24,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 500ms ease-in-out;
     margin: 2rem;
-    transition: 100ms ease-in-out;
 }
 
 .board-container {
@@ -34,11 +34,9 @@ body {
     align-items: center;
     min-height: 75%;
     max-width: 100%;
-    padding: 3rem;
-    margin: 3rem;
-    gap: 3rem;
+    gap: 5rem;
     flex-wrap: wrap;
-    transition: 100ms ease-in-out;
+    transition: 500ms ease-in-out;
 }
 
 .player p {
@@ -73,6 +71,10 @@ body {
 
 .computer-grid {
 border: 1px solid black;
+}
+
+.button-container {
+    margin: 2rem;
 }
 
 .reset-btn {
