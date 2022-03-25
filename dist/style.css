@@ -9,42 +9,48 @@
 body {
     height: 100vh;
     width: 100vw;
+}
+
+.container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 }
 
-.container {
-    min-height: 98%;
-    min-width: 100%;
-}
-
 .title {
     font-family: 'Palette Mosaic', cursive;
-    border: 1px solid black;
     font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 5rem;
+    transition: 500ms ease-in-out;
+    margin: 1.5rem;
+}
+
+.intruction-container {
+    transition: 500ms ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .board-container {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     min-height: 75%;
-    border: 1px solid black;
-    padding: 5rem;
-    margin: 5rem;
-    gap: 3rem;
+    max-width: 100%;
+    gap: 5rem;
+    margin: 1.5rem;
     flex-wrap: wrap;
+    transition: 500ms ease-in-out;
 }
 
 .player p {
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.2rem;
     padding: 1rem;
     font-weight: 700;
 }
@@ -55,7 +61,6 @@ body {
     padding: 1rem;
     font-weight: 700;
 }
-
 
 .player-board {
     display: grid;
@@ -74,5 +79,25 @@ body {
 }
 
 .computer-grid {
-border: 1px solid black;
+    border: 1px solid black;
+}
+
+.button-container {
+    margin: 2rem;
+}
+
+.reset-btn {
+    height: 2rem;
+    width: 6rem;
+    font-size: 1.2rem;
+    font-weight: 1000;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: white;
+    transition: 250ms ease-in-out;
+}
+
+.reset-btn:hover {
+    transform: scale(1.1);
+    transform: translateY(-3px);
 }
