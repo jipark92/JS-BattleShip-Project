@@ -1,7 +1,22 @@
+const userFactory = (name, marker) => {
+    return {name, marker}
+}
+
 const gameModule = (()=>{
     const playerBoard = document.querySelector('.player-board');
     const computerBoard = document.querySelector('.computer-board');
     const resetBtns = document.querySelector('.reset-btn');
+
+    let userList = [];
+
+    //submit users
+    const addUsers = () => {
+        const player = userFactory("Player", "X")
+        const computer = userFactory("Computer", "O")
+        userList.push(player)
+        userList.push(computer)
+    }
+    addUsers();
 
     const makePlayerGrid = (col, row) => {
         for (let i = 0; i < col * row; i++){
@@ -25,7 +40,7 @@ const gameModule = (()=>{
         const playerDivs = document.querySelectorAll('.player-grid');
         playerDivs.forEach((playerDiv)=>{
             playerDiv.addEventListener('click',()=>{
-                playerDiv.style.backgroundColor = "gray";
+                playerDiv.textContent = "X";
 
             })
         })
