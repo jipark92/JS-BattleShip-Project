@@ -6,6 +6,7 @@ const gameModule = (()=>{
     const playerBoard = document.querySelector('.player-board');
     const computerBoard = document.querySelector('.computer-board');
 
+    const resetBtns = document.querySelector('.reset-btn');
 
     const makePlayerGrid = (col, row) => {
         for (let i = 0; i < col * row; i++){
@@ -24,5 +25,13 @@ const gameModule = (()=>{
         }
     }
     makeComputerGrid(10,10);
+
+    const resetButton = () => {
+        resetBtns.addEventListener('click',()=>{
+            console.log('refreshed');
+            window.location.reload();
+        })
+    }
+    resetButton();
 
 })();
