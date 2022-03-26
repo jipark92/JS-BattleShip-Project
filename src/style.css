@@ -73,6 +73,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 0px;
 }
 
 .computer-board {
@@ -104,3 +105,39 @@ body {
     transform: scale(1.1);
     transform: translateY(-3px);
 }
+
+.rotate-btn {
+    height: 2rem;
+    width: 6rem;
+    font-size: 1.2rem;
+    font-weight: 1000;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: white;
+    transition: 250ms ease-in-out;
+}
+
+.rotate-btn:hover {
+    transform: scale(1.1);
+    transform: translateY(-3px);
+}
+
+.big-ship {
+    background-color: black;
+    display: grid;
+    height: 25px;
+}
+
+.medium-ship {
+
+}
+
+.small-ship {
+
+}
+
+.tiny-ship{
+
+
+}
+
