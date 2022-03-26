@@ -9,6 +9,7 @@
 body {
     height: 100vh;
     width: 100vw;
+    background-color: beige;
 }
 
 .container {
@@ -70,6 +71,10 @@ body {
 
 .player-grid {
     border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0px;
 }
 
 .computer-board {
@@ -80,6 +85,10 @@ body {
 
 .computer-grid {
     border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0px;
 }
 
 .button-container {
@@ -100,4 +109,83 @@ body {
 .reset-btn:hover {
     transform: scale(1.1);
     transform: translateY(-3px);
+}
+
+.start-btn {
+    height: 2rem;
+    width: 6rem;
+    font-size: 1.2rem;
+    font-weight: 1000;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: white;
+    transition: 250ms ease-in-out;
+}
+
+.start-btn:hover {
+    transform: scale(1.1);
+    transform: translateY(-3px);
+}
+
+.random-btn {
+    height: 2rem;
+    width: 6rem;
+    font-size: 1.2rem;
+    font-weight: 1000;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: white;
+    transition: 250ms ease-in-out;
+}
+
+.random-btn:hover {
+    transform: scale(1.1);
+    transform: translateY(-3px);
+}
+
+.game-info-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 55%;
+    transition: 250ms ease-in-out;
+
+}
+.game-status{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.game-status h2 {
+    margin: 0.4rem;
+}
+
+.instruction-container{
+    transition: 250ms ease-in-out;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 55%;
+}
+
+.instruction {
+    padding-top: 2rem;
+}
+
+.game-started {
+    color: green;
+}
+
+.press-start {
+    color: blue;
+}
+
+.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
 }
