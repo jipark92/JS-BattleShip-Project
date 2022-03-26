@@ -9,6 +9,11 @@ const gameModule = (()=>{
     const gameStartedText = document.querySelector('.game-started');
     const startBtns = document.querySelector('.start-btn');
     const pressStartText = document.querySelector('.press-start');
+    const hitText = document.querySelector('.hit-text');
+    const missText = document.querySelector('.miss-text');
+    const playerOneTurnText = document.querySelector('.player-1-turn');
+    const playerTwoTurnText = document.querySelector('.player-2-turn');
+
 
     let hitMarker = 1;
     let playerHP = 17;
@@ -17,6 +22,8 @@ const gameModule = (()=>{
     let ready = false;
     let playerTurn = true;
     let computerTurn = false;
+
+
 
     const disabledBoard = () =>{
         window.addEventListener('DOMContentLoaded',()=>{
@@ -29,12 +36,14 @@ const gameModule = (()=>{
     const startGame = () => {
         startBtns.addEventListener('click',(e)=>{
             e.preventDefault();
-            if (ready === false){
+            if (!ready){
                 ready = true;
                 playerBoard.classList.remove('disabled');
                 computerBoard.classList.remove('disabled');
                 gameStartedText.textContent = "Game Started!";
+                playerOneTurnText.textContent = "Player 1 Turn"
                 pressStartText.style.visibility = "hidden";
+                startBtns.classList.add('disabled');
             }
         })
     };
@@ -67,29 +76,44 @@ const gameModule = (()=>{
     makeComputerGrid(10,10);
 
     const playerAttackMarker = () => {
+        
         const computerDivs = document.querySelectorAll('.computer-grid');
         const win = document.querySelector('.win');
+        const gameStartedText = document.querySelector('.game-started');
+
         computerDivs.forEach((computerDiv)=>{
             computerDiv.addEventListener('click',()=>{
-                if (computerDiv.textContent === userList[1].marker){
-                    computerDiv.style.backgroundColor = "red";
-                    computerDiv.textContent = hitMarker;
-                    computerHP--;
-                    console.log(computerHP);
-                    if (computerHP === 0){
-                        win.textContent = "You Win!";
-                        gameStartedText.style.visibility = "hidden";
-                        pauseBoard();
+                if(playerTurn && !computerTurn){
+                    if (computerDiv.textContent === userList[1].marker){
+                        computerDiv.style.backgroundColor = "red";
+                        computerDiv.textContent = hitMarker;
+                        playerOneTurnText.textContent = "Player 2 Turn"
+                        shipHitText()
+                        computerHP--;
+                        playerTurn = false;
+                        computerTurn = true;
+                        if (computerHP === 0){
+                            win.textContent = "You Win!";
+                            gameStartedText.style.visibility = "hidden";
+                            pauseBoard();
+                        } 
+                    } else if(computerDiv.textContent === "1"){
+                        return;
+                    } else {
+                        computerDiv.style.backgroundColor = "blue"
+                        missText.textContent = "MISSED!"
+                        playerOneTurnText.textContent = "Player 2 Turn"
+                        setTimeout(() => {
+                            missText.textContent = ""
+                        }, 1000);
+                        playerTurn = false;
+                        computerTurn = true;
                     } 
-                } else if(computerDiv.textContent === "1"){
-                    return;
-                } else {
-                    computerDiv.style.backgroundColor = "blue"
-                } 
+                }
             })
         })
     };
-    playerAttackMarker();
+    playerAttackMarker()
 
     const computerAttackMarker = () => {
         const playerDivs = document.querySelectorAll('.player-grid');
@@ -97,11 +121,16 @@ const gameModule = (()=>{
         const gameStartedText = document.querySelector('.game-started');
         playerDivs.forEach((playerDiv)=>{
             playerDiv.addEventListener('click',()=>{
-                if (playerDiv.textContent === userList[0].marker){
-                    playerDiv.style.backgroundColor = "red";
-                    playerDiv.textContent = hitMarker;
-                    playerHP--;
-                    console.log(playerHP);
+                if(computerTurn){
+                    if (playerDiv.textContent === userList[0].marker){
+                        playerDiv.style.backgroundColor = "red";
+                        playerDiv.textContent = hitMarker;
+                        playerOneTurnText.textContent = "Player 1 Turn"
+                        shipHitText()
+                        playerHP--;
+                        computerTurn = false;
+                        playerTurn = true;
+                        console.log(computerTurn, playerTurn)
                     if (playerHP === 0){
                         lost.textContent = "You Lost!";
                         gameStartedText.style.visibility = "hidden";
@@ -111,11 +140,26 @@ const gameModule = (()=>{
                     return;
                 } else {
                     playerDiv.style.backgroundColor = "blue"
+                    missText.textContent = "MISSED!"
+                    playerOneTurnText.textContent = "Player 1 Turn"
+                    setTimeout(() => {
+                        missText.textContent = ""
+                    }, 1000);
+                    computerTurn = false;
+                    playerTurn = true;
                 } 
+                }
             })
         })
     };
     computerAttackMarker();
+
+    const shipHitText = () =>{
+        hitText.textContent = "SHIP HIT!"
+        setTimeout(() => {
+            hitText.textContent = ""
+        }, 1000);
+    }
 
     const resetButton = () => {
         resetBtns.addEventListener('click',()=>{
@@ -618,3 +662,49 @@ const gameModule = (()=>{
     };
 
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let playerTurn = true;
+// let computerTurn = false;
+// const playerDivs = document.querySelectorAll('.player-grid');
+// const computerDivs = document.querySelectorAll('.computer-grid');
+
+// if (!computerTurn && playerTurn){
+//     playerDivs.forEach((playerDiv)=>{
+//         playerTurn = false;
+//         computerTurn = true;
+//         console.log(playerTurn, computerTurn)
+//         playerDiv.addEventListener('click',()=>{
+//             playerDiv.style.backgroundColor = "red"
+//             playerDiv.textContent = hitMarker;
+//             playerHP--;
+//             console.log(playerHP)
+//         })
+     
+
+//     })
+// } 
+// if (!playerTurn && computerTurn){
+//     computerDivs.forEach((computerDiv)=>{
+//         playerTurn = true;
+//         computerTurn = false;
+//         console.log(playerTurn, computerTurn)
+//         computerDiv.addEventListener('click',()=>{
+//             computerDiv.style.backgroundColor = "green"
+//         })
+       
+
+//     })
+// }
