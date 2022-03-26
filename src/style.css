@@ -9,6 +9,7 @@
 body {
     height: 100vh;
     width: 100vw;
+    background-color: beige;
 }
 
 .container {
@@ -84,6 +85,10 @@ body {
 
 .computer-grid {
     border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0px;
 }
 
 .button-container {
@@ -102,6 +107,22 @@ body {
 }
 
 .reset-btn:hover {
+    transform: scale(1.1);
+    transform: translateY(-3px);
+}
+
+.start-btn {
+    height: 2rem;
+    width: 6rem;
+    font-size: 1.2rem;
+    font-weight: 1000;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: white;
+    transition: 250ms ease-in-out;
+}
+
+.start-btn:hover {
     transform: scale(1.1);
     transform: translateY(-3px);
 }
