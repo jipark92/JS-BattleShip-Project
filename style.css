@@ -165,7 +165,6 @@ body {
 
 .instruction-container{
     transition: 250ms ease-in-out;
-    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
