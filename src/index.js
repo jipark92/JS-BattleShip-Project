@@ -1,6 +1,6 @@
 const userFactory = (name, marker) => {
-    return {name, marker}
-}
+    return {name, marker};
+};
 
 const gameModule = (()=>{
     const playerBoard = document.querySelector('.player-board');
@@ -8,8 +8,6 @@ const gameModule = (()=>{
     const resetBtns = document.querySelector('.reset-btn');
     const rotateBtns = document.querySelector('.rotate-btn');
 
-
-    let rotate = false;
     let hitMarker = 1;
     let playerHP = 17;
     let computerHP = 17;
@@ -19,25 +17,27 @@ const gameModule = (()=>{
     const disabledBoard = () =>{
         window.addEventListener('DOMContentLoaded',()=>{
             playerBoard.classList.add('disabled')
+            computerBoard.classList.add('disabled')
         })
     }
     disabledBoard();
 
     const startGame = () => {
         const startBtns = document.querySelector('.start-btn');
-        const playerDivs = document.querySelectorAll('.player-grid');
+        const gameStartedText = document.querySelector('.game-started');
+        const pressStartText = document.querySelector('.press-start');
+
         startBtns.addEventListener('click',(e)=>{
             e.preventDefault();
-            console.log('clicked')
-        
             if (ready === false){
                 ready = true;
-                playerBoard.classList.remove('disabled')
-                
+                playerBoard.classList.remove('disabled');
+                computerBoard.classList.remove('disabled');
+                gameStartedText.textContent = "Game Started!"
+                pressStartText.style.visibility = "hidden";
             }
         })
-    }
-    startGame();
+    };
 
     //submit users
     const addUsers = () => {
@@ -89,10 +89,10 @@ const gameModule = (()=>{
     };
     playerAttackMarker();
 
-
     const computerAttackMarker = () => {
         const playerDivs = document.querySelectorAll('.player-grid');
         const lost = document.querySelector('.lost');
+        const gameStartedText = document.querySelector('.game-started');
         playerDivs.forEach((playerDiv)=>{
             playerDiv.addEventListener('click',()=>{
                 if (playerDiv.textContent === userList[0].marker){
@@ -102,6 +102,7 @@ const gameModule = (()=>{
                     console.log(playerHP)
                     if (playerHP === 0){
                         lost.textContent = "You Lost!"
+                        gameStartedText.style.visibility = "hidden";
                     } 
                 } else if(playerDiv.textContent === "1"){
                     return
@@ -121,6 +122,50 @@ const gameModule = (()=>{
     }
     resetButton();
 
+    const randomGenerator = () =>{
+        return Math.floor(Math.random() * 3); 
+    }
+    // console.log(randomGenerator())
+
+    const playerShipPosition = (number) => {
+        const randomBtns = document.querySelector('.random-btn')
+        const instructions = document.querySelectorAll('.instruct');
+        randomBtns.addEventListener('click',()=>{
+            let num = randomGenerator()
+            if (num === 0){
+                playerShipChoices1()
+                startGame()
+                randomBtns.classList.add('disabled')
+                startInstruction()
+                instructions.forEach((instruction)=>{
+                    instruction.style.visibility = "hidden";
+                })
+            } else if (num === 1){
+                playerShipChoices2()
+                startGame()
+                randomBtns.classList.add('disabled')
+                startInstruction()
+                instructions.forEach((instruction)=>{
+                    instruction.style.visibility = "hidden";
+                })
+            } else if (num === 2){
+                playerShipChoices3()
+                startGame()
+                randomBtns.classList.add('disabled')
+                startInstruction()
+                instructions.forEach((instruction)=>{
+                    instruction.style.visibility = "hidden";
+                })
+            }
+        })
+    }
+    playerShipPosition(randomGenerator())
+
+
+    const startInstruction = () =>{
+        const pressStartText = document.querySelector('.press-start');
+        pressStartText.textContent = "Press Start Button"
+    };
 
 
 
@@ -136,7 +181,7 @@ const gameModule = (()=>{
 
 
 
-
+//make player ships 1
     const makePlayerBigShip = () => {
         const playerDivs = document.querySelectorAll('.player-grid')
         // console.log(playerDivs)
@@ -403,27 +448,6 @@ const gameModule = (()=>{
         makePlayerTinyShip();
     }
 
-    const randomGenerator = () =>{
-        return Math.floor(Math.random() * 3); 
-    }
-    // console.log(randomGenerator())
-
-    const playerShipPosition = (number) => {
-        const randomBtns = document.querySelector('.random-btn')
-        randomBtns.addEventListener('click',()=>{
-            let num = randomGenerator()
-            if (num === 0){
-                playerShipChoices1()
-            } else if (num === 1){
-                playerShipChoices2()
-            } else if (num === 2){
-                playerShipChoices3()
-            }
-        })
-    }
-    playerShipPosition(randomGenerator())
-
-
 
 
 
@@ -446,7 +470,7 @@ const gameModule = (()=>{
             }
         }
     }
-    makeCompBigShip();
+    // makeCompBigShip();
 
     const makeCompMediumShip = () => {
         const computerDivs = document.querySelectorAll('.computer-grid');
@@ -460,7 +484,7 @@ const gameModule = (()=>{
             }
         }
     }
-    makeCompMediumShip();
+    // makeCompMediumShip();
 
     const makeCompSmallShip = () => {
         const computerDivs = document.querySelectorAll('.computer-grid');
@@ -473,7 +497,7 @@ const gameModule = (()=>{
             }
         }
     }
-    makeCompSmallShip();
+    // makeCompSmallShip();
 
     const makeCompSmallShips = () => {
         const computerDivs = document.querySelectorAll('.computer-grid');
@@ -486,7 +510,7 @@ const gameModule = (()=>{
             }
         }
     }
-    makeCompSmallShips();
+    // makeCompSmallShips();
 
     const makeCompTinyShip = () => {
         const computerDivs = document.querySelectorAll('.computer-grid');
@@ -498,6 +522,10 @@ const gameModule = (()=>{
             }
         }
     }
-    makeCompTinyShip();
+    // makeCompTinyShip();
+
+
+
+    
 })();
 
