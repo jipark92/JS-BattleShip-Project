@@ -150,8 +150,10 @@ body {
     width: 55%;
 }
 .game-status{
-
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .instruction-container{
@@ -168,7 +170,7 @@ body {
 }
 
 .game-started {
-    color: green
+    color: green;
 }
 
 .press-start {
