@@ -166,7 +166,7 @@ body {
 }
 
 .instruction {
-    margin: 5rem;
+    padding-top: 2rem;
 }
 
 .game-started {
