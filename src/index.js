@@ -16,6 +16,29 @@ const gameModule = (()=>{
     let userList = [];
     let ready = false;
 
+    const disabledBoard = () =>{
+        window.addEventListener('DOMContentLoaded',()=>{
+            playerBoard.classList.add('disabled')
+        })
+    }
+    disabledBoard();
+
+    const startGame = () => {
+        const startBtns = document.querySelector('.start-btn');
+        const playerDivs = document.querySelectorAll('.player-grid');
+        startBtns.addEventListener('click',(e)=>{
+            e.preventDefault();
+            console.log('clicked')
+        
+            if (ready === false){
+                ready = true;
+                playerBoard.classList.remove('disabled')
+                
+            }
+        })
+    }
+    startGame();
+
     //submit users
     const addUsers = () => {
         const player = userFactory("Player", "X")
@@ -100,6 +123,20 @@ const gameModule = (()=>{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const makePlayerBigShip = () => {
         const playerDivs = document.querySelectorAll('.player-grid')
         // console.log(playerDivs)
@@ -115,7 +152,7 @@ const gameModule = (()=>{
 
         }
     }
-    makePlayerBigShip();
+    // makePlayerBigShip();
 
     const makePlayerMediumShip = () => {
         const playerDivs = document.querySelectorAll('.player-grid')
@@ -129,9 +166,9 @@ const gameModule = (()=>{
             }
         }
     }
-    makePlayerMediumShip();
+    // makePlayerMediumShip();
 
-    const makePlayerMediumShip2 = () => {
+    const makePlayerMediumShips = () => {
         const playerDivs = document.querySelectorAll('.player-grid')
         for (let i = 0; i < playerDivs.length;i++){
             playerDivs[96].textContent = userList[0].marker;
@@ -142,7 +179,7 @@ const gameModule = (()=>{
             }
         }
     };
-    makePlayerMediumShip2();
+    // makePlayerMediumShips();
 
     const makePlayerSmallShip = () => {
         const playerDivs = document.querySelectorAll('.player-grid')
@@ -155,7 +192,7 @@ const gameModule = (()=>{
             }
         }
     };
-    makePlayerSmallShip();
+    // makePlayerSmallShip2();
 
     const makePlayerTinyShip = () => {
         const playerDivs = document.querySelectorAll('.player-grid');
@@ -167,7 +204,232 @@ const gameModule = (()=>{
             }
         }
     };
-    makePlayerTinyShip();
+    // makePlayerTinyShip();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //make 2nd option player ships
+    const makePlayerBigShip2 = () => {
+        const playerDivs = document.querySelectorAll('.player-grid')
+        // console.log(playerDivs)
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[17].textContent = userList[0].marker;
+            playerDivs[27].textContent = userList[0].marker;
+            playerDivs[37].textContent = userList[0].marker;
+            playerDivs[47].textContent = userList[0].marker;
+            playerDivs[57].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+
+        }
+    }
+    // makePlayerBigShip2();
+
+    const makePlayerMediumShip2 = () => {
+        const playerDivs = document.querySelectorAll('.player-grid')
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[99].textContent = userList[0].marker;
+            playerDivs[89].textContent = userList[0].marker;
+            playerDivs[79].textContent = userList[0].marker;
+            playerDivs[69].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    }
+    // makePlayerMediumShip2();
+
+    const makePlayerMediumShips2 = () => {
+        const playerDivs = document.querySelectorAll('.player-grid')
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[12].textContent = userList[0].marker;
+            playerDivs[13].textContent = userList[0].marker;
+            playerDivs[14].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    };
+    // makePlayerMediumShips2();
+
+    const makePlayerSmallShip2 = () => {
+        const playerDivs = document.querySelectorAll('.player-grid')
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[73].textContent = userList[0].marker;
+            playerDivs[74].textContent = userList[0].marker;
+            playerDivs[75].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    };
+    // makePlayerSmallShip2();
+
+    const makePlayerTinyShip2 = () => {
+        const playerDivs = document.querySelectorAll('.player-grid');
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[52].textContent = userList[0].marker;
+            playerDivs[53].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    };
+    // makePlayerTinyShip2();
+
+
+
+
+
+
+
+
+
+
+
+
+    //make 3rd option player ships
+    const makePlayerBigShip3 = () => {
+        const playerDivs = document.querySelectorAll('.player-grid')
+        // console.log(playerDivs)
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[73].textContent = userList[0].marker;
+            playerDivs[74].textContent = userList[0].marker;
+            playerDivs[75].textContent = userList[0].marker;
+            playerDivs[76].textContent = userList[0].marker;
+            playerDivs[77].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+
+        }
+    }
+    // makePlayerBigShip3();
+
+    const makePlayerMediumShip3 = () => {
+        const playerDivs = document.querySelectorAll('.player-grid')
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[15].textContent = userList[0].marker;
+            playerDivs[16].textContent = userList[0].marker;
+            playerDivs[16].textContent = userList[0].marker;
+            playerDivs[17].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    }
+    // makePlayerMediumShip3();
+
+    const makePlayerMediumShips3 = () => {
+        const playerDivs = document.querySelectorAll('.player-grid')
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[20].textContent = userList[0].marker;
+            playerDivs[21].textContent = userList[0].marker;
+            playerDivs[22].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    };
+    // makePlayerMediumShips3();
+
+    const makePlayerSmallShip3 = () => {
+        const playerDivs = document.querySelectorAll('.player-grid')
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[71].textContent = userList[0].marker;
+            playerDivs[61].textContent = userList[0].marker;
+            playerDivs[51].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    };
+    // makePlayerSmallShip3();
+
+    const makePlayerTinyShip3 = () => {
+        const playerDivs = document.querySelectorAll('.player-grid');
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[46].textContent = userList[0].marker;
+            playerDivs[47].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    };
+    // makePlayerTinyShip3();
+
+
+
+
+
+
+
+    const playerShipChoices3 = () => {
+        makePlayerBigShip3();
+        makePlayerMediumShip3();
+        makePlayerMediumShips3();
+        makePlayerSmallShip3();
+        makePlayerTinyShip3();
+    }
+
+    const playerShipChoices2 = () => {
+        makePlayerBigShip2();
+        makePlayerMediumShip2();
+        makePlayerMediumShips2();
+        makePlayerSmallShip2();
+        makePlayerTinyShip2();
+    }
+
+    const playerShipChoices1 = () => {
+        makePlayerBigShip();
+        makePlayerMediumShip();
+        makePlayerMediumShips();
+        makePlayerSmallShip();
+        makePlayerTinyShip();
+    }
+
+    const randomGenerator = () =>{
+        return Math.floor(Math.random() * 3); 
+    }
+    // console.log(randomGenerator())
+
+    const playerShipPosition = (number) => {
+        const randomBtns = document.querySelector('.random-btn')
+        randomBtns.addEventListener('click',()=>{
+            let num = randomGenerator()
+            if (num === 0){
+                playerShipChoices1()
+            } else if (num === 1){
+                playerShipChoices2()
+            } else if (num === 2){
+                playerShipChoices3()
+            }
+        })
+    }
+    playerShipPosition(randomGenerator())
+
+
+
+
+
+
+
+
 
 
     //make enemy ships
@@ -213,7 +475,7 @@ const gameModule = (()=>{
     }
     makeCompSmallShip();
 
-    const makeCompSmallShip2 = () => {
+    const makeCompSmallShips = () => {
         const computerDivs = document.querySelectorAll('.computer-grid');
         for (let i = 0; i < computerDivs.length;i++){
             computerDivs[70].textContent = userList[1].marker;
@@ -224,7 +486,7 @@ const gameModule = (()=>{
             }
         }
     }
-    makeCompSmallShip2();
+    makeCompSmallShips();
 
     const makeCompTinyShip = () => {
         const computerDivs = document.querySelectorAll('.computer-grid');
@@ -237,63 +499,5 @@ const gameModule = (()=>{
         }
     }
     makeCompTinyShip();
-
-
-
-
-
 })();
 
-// const makeShipsHTML = (() => {
-//     const player = document.querySelector('.player-board');
-
-    
-//     const makeBigShip = () => {
-
-//     }
-//     makeBigShip();
-    
-// })();
-
-
-
-
-// const makeBigShip = () => {
-//     for (let i = 0; i < 5; i++){
-//         const bigShip = document.createElement('div')
-//         bigShip.setAttribute('class', 'big-ship');
-//         playerBoard.appendChild(bigShip)
-//         console.log(bigShip)
-//     }
-// }
-// makeBigShip();
-
-
-// if(!rotate){
-//     playerDivs[2].textContent = "O"
-//     playerDivs[2].style.backgroundColor = "gray"
-//     playerDivs[12].textContent = "O"
-//     playerDivs[12].style.backgroundColor = "gray"
-//     playerDivs[22].textContent = "O"
-//     playerDivs[22].style.backgroundColor = "gray"
-//     playerDivs[32].textContent = "O"
-//     playerDivs[32].style.backgroundColor = "gray"
-//     playerDivs[42].textContent = "O"
-//     playerDivs[42].style.backgroundColor = "gray"
-//     rotate = true;
-// } else if (rotate){
-//     playerDivs[2].textContent = "O"
-//     playerDivs[2].style.backgroundColor = "gray"
-//     playerDivs[3].textContent = "O"
-//     playerDivs[3].style.backgroundColor = "gray"
-//     playerDivs[4].textContent = "O"
-//     playerDivs[4].style.backgroundColor = "gray"
-//     playerDivs[5].textContent = "O"
-//     playerDivs[5].style.backgroundColor = "gray"
-//     playerDivs[6].textContent = "O"
-//     playerDivs[6].style.backgroundColor = "gray"
-// }
-
-// else {
-//     playerDiv.style.backgroundColor = "Blue"
-// }
