@@ -429,7 +429,8 @@ const gameModule = (()=>{
             computerDivs[18].textContent = userList[1].marker;
             computerDivs[28].textContent = userList[1].marker;
             if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray"
+                //hide computer ship so player doesnt know where it is
+                computerDivs[i].style.backgroundColor = ""
             }
         }
     };
@@ -464,7 +465,8 @@ const gameModule = (()=>{
             computerDivs[94].textContent = userList[1].marker;
             computerDivs[95].textContent = userList[1].marker;
             if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray";
+                //hide computer ship so player doesnt know where it is
+                computerDivs[i].style.backgroundColor = "";
             }
         }
     };
@@ -499,7 +501,8 @@ const gameModule = (()=>{
             computerDivs[89].textContent = userList[1].marker;
             computerDivs[99].textContent = userList[1].marker;
             if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray";
+                //hide computer ship so player doesnt know where it is
+                computerDivs[i].style.backgroundColor = "";
             }
         }
     };
@@ -534,7 +537,8 @@ const gameModule = (()=>{
             computerDivs[62].textContent = userList[1].marker;
             computerDivs[72].textContent = userList[1].marker;
             if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray";
+                //hide computer ship so player doesnt know where it is
+                computerDivs[i].style.backgroundColor = "";
             }
         }
     };
