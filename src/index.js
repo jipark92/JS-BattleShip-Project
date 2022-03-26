@@ -6,13 +6,18 @@ const gameModule = (()=>{
     const playerBoard = document.querySelector('.player-board');
     const computerBoard = document.querySelector('.computer-board');
     const resetBtns = document.querySelector('.reset-btn');
-    const rotateBtns = document.querySelector('.rotate-btn');
+    const gameStartedText = document.querySelector('.game-started');
+    const startBtns = document.querySelector('.start-btn');
+    const pressStartText = document.querySelector('.press-start');
+
 
     let hitMarker = 1;
     let playerHP = 17;
     let computerHP = 17;
     let userList = [];
     let ready = false;
+    let playerTurn = true;
+    let computerTurn = false;
 
     const disabledBoard = () =>{
         window.addEventListener('DOMContentLoaded',()=>{
@@ -23,10 +28,6 @@ const gameModule = (()=>{
     disabledBoard();
 
     const startGame = () => {
-        const startBtns = document.querySelector('.start-btn');
-        const gameStartedText = document.querySelector('.game-started');
-        const pressStartText = document.querySelector('.press-start');
-
         startBtns.addEventListener('click',(e)=>{
             e.preventDefault();
             if (ready === false){
@@ -78,6 +79,8 @@ const gameModule = (()=>{
                     console.log(computerHP)
                     if (computerHP === 0){
                         win.textContent = "You Win!"
+                        gameStartedText.style.visibility = "hidden";
+                        pauseBoard();
                     } 
                 } else if(computerDiv.textContent === "1"){
                     return
@@ -103,6 +106,7 @@ const gameModule = (()=>{
                     if (playerHP === 0){
                         lost.textContent = "You Lost!"
                         gameStartedText.style.visibility = "hidden";
+                        pauseBoard();
                     } 
                 } else if(playerDiv.textContent === "1"){
                     return
@@ -122,6 +126,13 @@ const gameModule = (()=>{
     }
     resetButton();
 
+    const pauseBoard = () => {
+        ready = false
+        playerBoard.classList.add('disabled')
+        computerBoard.classList.add('disabled')
+        startBtns.classList.add('disabled')
+    }
+
     const randomGenerator = () =>{
         return Math.floor(Math.random() * 3); 
     }
@@ -131,41 +142,48 @@ const gameModule = (()=>{
         const randomBtns = document.querySelector('.random-btn')
         const instructions = document.querySelectorAll('.instruct');
         randomBtns.addEventListener('click',()=>{
-            let num = randomGenerator()
+            let num = randomGenerator();
             if (num === 0){
-                playerShipChoices1()
-                startGame()
-                randomBtns.classList.add('disabled')
-                startInstruction()
-                instructions.forEach((instruction)=>{
-                    instruction.style.visibility = "hidden";
-                })
+                playerShipChoices1();
+                computerShipChoices1();
+                startGame();
+                disableRndmBtns(randomBtns);
+                startInstruction();
+                hideInstruction(instructions);
             } else if (num === 1){
-                playerShipChoices2()
-                startGame()
-                randomBtns.classList.add('disabled')
-                startInstruction()
-                instructions.forEach((instruction)=>{
-                    instruction.style.visibility = "hidden";
-                })
+                playerShipChoices2();
+                computerShipChoices2();
+                startGame();
+                disableRndmBtns(randomBtns);
+                startInstruction();
+                hideInstruction(instructions);
             } else if (num === 2){
-                playerShipChoices3()
-                startGame()
-                randomBtns.classList.add('disabled')
-                startInstruction()
-                instructions.forEach((instruction)=>{
-                    instruction.style.visibility = "hidden";
-                })
+                playerShipChoices3();
+                computerShipChoices3();
+                startGame();
+                disableRndmBtns(randomBtns);
+                startInstruction();
+                hideInstruction(instructions);
             }
         })
     }
-    playerShipPosition(randomGenerator())
+    playerShipPosition(randomGenerator());
 
 
     const startInstruction = () =>{
         const pressStartText = document.querySelector('.press-start');
         pressStartText.textContent = "Press Start Button"
     };
+
+    const hideInstruction = (instructions) =>{
+        instructions.forEach((instruction)=>{
+            instruction.style.visibility = "hidden";
+        })
+    }
+
+    const disableRndmBtns = (randomBtns) => {
+        randomBtns.classList.add('disabled')
+    }
 
 
 
@@ -371,13 +389,14 @@ const gameModule = (()=>{
         for (let i = 0; i < playerDivs.length;i++){
             playerDivs[15].textContent = userList[0].marker;
             playerDivs[16].textContent = userList[0].marker;
-            playerDivs[16].textContent = userList[0].marker;
             playerDivs[17].textContent = userList[0].marker;
+            playerDivs[18].textContent = userList[0].marker;
             if (playerDivs[i].textContent === userList[0].marker){
                 playerDivs[i].style.backgroundColor = "gray"
             }
         }
     }
+    // makePlayerMediumShip3()
     // makePlayerMediumShip3();
 
     const makePlayerMediumShips3 = () => {
@@ -456,6 +475,34 @@ const gameModule = (()=>{
 
 
 
+    const computerShipChoices1 = () => {
+        makeCompBigShip()
+        makeCompMediumShip();
+        makeCompSmallShip()
+        makeCompSmallShips();
+        makeCompTinyShip();
+    }
+
+    const computerShipChoices2 = () => {
+        makeCompBigShip2()
+        makeCompMediumShip2();
+        makeCompSmallShip2()
+        makeCompSmallShips2();
+        makeCompTinyShip2();
+    }
+
+    const computerShipChoices3 = () => {
+        makeCompBigShip3()
+        makeCompMediumShip3();
+        makeCompSmallShip3()
+        makeCompSmallShips3();
+        makeCompTinyShip3();
+    }
+
+
+
+
+
     //make enemy ships
     const makeCompBigShip = () => {
         const computerDivs = document.querySelectorAll('.computer-grid');
@@ -523,6 +570,176 @@ const gameModule = (()=>{
         }
     }
     // makeCompTinyShip();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //make enemyship 2
+    const makeCompBigShip2 = () => {
+        const computerDivs = document.querySelectorAll('.computer-grid');
+        for (let i = 0; i < computerDivs.length;i++){
+            computerDivs[15].textContent = userList[1].marker;
+            computerDivs[25].textContent = userList[1].marker;
+            computerDivs[35].textContent = userList[1].marker;
+            computerDivs[45].textContent = userList[1].marker;
+            computerDivs[55].textContent = userList[1].marker;
+            if (computerDivs[i].textContent === userList[1].marker){
+                computerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    }
+    // makeCompBigShip2();
+
+    const makeCompMediumShip2 = () => {
+        const computerDivs = document.querySelectorAll('.computer-grid');
+        for (let i = 0; i < computerDivs.length;i++){
+            computerDivs[31].textContent = userList[1].marker;
+            computerDivs[41].textContent = userList[1].marker;
+            computerDivs[51].textContent = userList[1].marker;
+            computerDivs[61].textContent = userList[1].marker;
+            if (computerDivs[i].textContent === userList[1].marker){
+                computerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    }
+    // makeCompMediumShip2();
+
+    const makeCompSmallShip2 = () => {
+        const computerDivs = document.querySelectorAll('.computer-grid');
+        for (let i = 0; i < computerDivs.length;i++){
+            computerDivs[75].textContent = userList[1].marker;
+            computerDivs[76].textContent = userList[1].marker;
+            computerDivs[77].textContent = userList[1].marker;
+            if (computerDivs[i].textContent === userList[1].marker){
+                computerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    }
+    // makeCompSmallShip2();
+
+    const makeCompSmallShips2 = () => {
+        const computerDivs = document.querySelectorAll('.computer-grid');
+        for (let i = 0; i < computerDivs.length;i++){
+            computerDivs[80].textContent = userList[1].marker;
+            computerDivs[81].textContent = userList[1].marker;
+            computerDivs[82].textContent = userList[1].marker;
+            if (computerDivs[i].textContent === userList[1].marker){
+                computerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    }
+    // makeCompSmallShips2();
+
+    const makeCompTinyShip2 = () => {
+        const computerDivs = document.querySelectorAll('.computer-grid');
+        for (let i = 0; i < computerDivs.length;i++){
+            computerDivs[8].textContent = userList[1].marker;
+            computerDivs[9].textContent = userList[1].marker;
+            if (computerDivs[i].textContent === userList[1].marker){
+                computerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    }
+    // makeCompTinyShip2();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//make enemyship 3
+const makeCompBigShip3 = () => {
+    const computerDivs = document.querySelectorAll('.computer-grid');
+    for (let i = 0; i < computerDivs.length;i++){
+        computerDivs[25].textContent = userList[1].marker;
+        computerDivs[26].textContent = userList[1].marker;
+        computerDivs[27].textContent = userList[1].marker;
+        computerDivs[28].textContent = userList[1].marker;
+        computerDivs[29].textContent = userList[1].marker;
+        if (computerDivs[i].textContent === userList[1].marker){
+            computerDivs[i].style.backgroundColor = "gray"
+        }
+    }
+}
+// makeCompBigShip3();
+
+const makeCompMediumShip3 = () => {
+    const computerDivs = document.querySelectorAll('.computer-grid');
+    for (let i = 0; i < computerDivs.length;i++){
+        computerDivs[55].textContent = userList[1].marker;
+        computerDivs[65].textContent = userList[1].marker;
+        computerDivs[75].textContent = userList[1].marker;
+        computerDivs[85].textContent = userList[1].marker;
+        if (computerDivs[i].textContent === userList[1].marker){
+            computerDivs[i].style.backgroundColor = "gray"
+        }
+    }
+}
+// makeCompMediumShip3();
+
+const makeCompSmallShip3 = () => {
+    const computerDivs = document.querySelectorAll('.computer-grid');
+    for (let i = 0; i < computerDivs.length;i++){
+        computerDivs[41].textContent = userList[1].marker;
+        computerDivs[42].textContent = userList[1].marker;
+        computerDivs[43].textContent = userList[1].marker;
+        if (computerDivs[i].textContent === userList[1].marker){
+            computerDivs[i].style.backgroundColor = "gray"
+        }
+    }
+}
+// makeCompSmallShip3();
+
+const makeCompSmallShips3 = () => {
+    const computerDivs = document.querySelectorAll('.computer-grid');
+    for (let i = 0; i < computerDivs.length;i++){
+        computerDivs[70].textContent = userList[1].marker;
+        computerDivs[80].textContent = userList[1].marker;
+        computerDivs[90].textContent = userList[1].marker;
+        if (computerDivs[i].textContent === userList[1].marker){
+            computerDivs[i].style.backgroundColor = "gray"
+        }
+    }
+}
+// makeCompSmallShips3();
+
+const makeCompTinyShip3 = () => {
+    const computerDivs = document.querySelectorAll('.computer-grid');
+    for (let i = 0; i < computerDivs.length;i++){
+        computerDivs[1].textContent = userList[1].marker;
+        computerDivs[2].textContent = userList[1].marker;
+        if (computerDivs[i].textContent === userList[1].marker){
+            computerDivs[i].style.backgroundColor = "gray"
+        }
+    }
+}
+// makeCompTinyShip3();
+
 
 
 
