@@ -11,9 +11,7 @@ const gameModule = (()=>{
     const pressStartText = document.querySelector('.press-start');
     const hitText = document.querySelector('.hit-text');
     const missText = document.querySelector('.miss-text');
-    const playerOneTurnText = document.querySelector('.player-1-turn');
-    const playerTwoTurnText = document.querySelector('.player-2-turn');
-
+    const playerTurnText = document.querySelector('.player-turn');
 
     let hitMarker = 1;
     let playerHP = 17;
@@ -22,8 +20,6 @@ const gameModule = (()=>{
     let ready = false;
     let playerTurn = true;
     let computerTurn = false;
-
-
 
     const disabledBoard = () =>{
         window.addEventListener('DOMContentLoaded',()=>{
@@ -41,7 +37,7 @@ const gameModule = (()=>{
                 playerBoard.classList.remove('disabled');
                 computerBoard.classList.remove('disabled');
                 gameStartedText.textContent = "Game Started!";
-                playerOneTurnText.textContent = "Player 1 Turn"
+                playerTurnText.textContent = "Player 1 Turn";
                 pressStartText.style.visibility = "hidden";
                 startBtns.classList.add('disabled');
             }
@@ -87,8 +83,8 @@ const gameModule = (()=>{
                     if (computerDiv.textContent === userList[1].marker){
                         computerDiv.style.backgroundColor = "red";
                         computerDiv.textContent = hitMarker;
-                        playerOneTurnText.textContent = "Player 2 Turn"
-                        shipHitText()
+                        playerTurnText.textContent = "Player 2 Turn";
+                        enemyShipHitText();
                         computerHP--;
                         playerTurn = false;
                         computerTurn = true;
@@ -100,11 +96,11 @@ const gameModule = (()=>{
                     } else if(computerDiv.textContent === "1"){
                         return;
                     } else {
-                        computerDiv.style.backgroundColor = "blue"
-                        missText.textContent = "MISSED!"
-                        playerOneTurnText.textContent = "Player 2 Turn"
+                        computerDiv.style.backgroundColor = "blue";
+                        missText.textContent = "MISSED!";
+                        playerTurnText.textContent = "Player 2 Turn";
                         setTimeout(() => {
-                            missText.textContent = ""
+                            missText.textContent = "";
                         }, 1000);
                         playerTurn = false;
                         computerTurn = true;
@@ -125,12 +121,12 @@ const gameModule = (()=>{
                     if (playerDiv.textContent === userList[0].marker){
                         playerDiv.style.backgroundColor = "red";
                         playerDiv.textContent = hitMarker;
-                        playerOneTurnText.textContent = "Player 1 Turn"
-                        shipHitText()
+                        playerTurnText.textContent = "Player 1 Turn";
+                        playerShipHitText();
                         playerHP--;
                         computerTurn = false;
                         playerTurn = true;
-                        console.log(computerTurn, playerTurn)
+                        console.log(computerTurn, playerTurn);
                     if (playerHP === 0){
                         lost.textContent = "You Lost!";
                         gameStartedText.style.visibility = "hidden";
@@ -139,11 +135,11 @@ const gameModule = (()=>{
                 } else if(playerDiv.textContent === "1"){
                     return;
                 } else {
-                    playerDiv.style.backgroundColor = "blue"
-                    missText.textContent = "MISSED!"
-                    playerOneTurnText.textContent = "Player 1 Turn"
+                    playerDiv.style.backgroundColor = "blue";
+                    missText.textContent = "MISSED!";
+                    playerTurnText.textContent = "Player 1 Turn";
                     setTimeout(() => {
-                        missText.textContent = ""
+                        missText.textContent = "";
                     }, 1000);
                     computerTurn = false;
                     playerTurn = true;
@@ -154,19 +150,28 @@ const gameModule = (()=>{
     };
     computerAttackMarker();
 
-    const shipHitText = () =>{
-        hitText.textContent = "SHIP HIT!"
+    const playerShipHitText = () =>{
+        hitText.textContent = "PLAYER SHIP HIT!";
         setTimeout(() => {
-            hitText.textContent = ""
-        }, 1000);
-    }
+            hitText.textContent = "";
+        }, 1500);
+    };
+
+    const enemyShipHitText = () =>{
+        hitText.textContent = "ENEMY SHIP HIT!";
+        setTimeout(() => {
+            hitText.textContent = "";
+        }, 1500);
+    };
+
+
 
     const resetButton = () => {
         resetBtns.addEventListener('click',()=>{
             console.log('refreshed');
             window.location.reload();
         })
-    }
+    };
     resetButton();
 
     const pauseBoard = () => {
@@ -174,12 +179,11 @@ const gameModule = (()=>{
         playerBoard.classList.add('disabled');
         computerBoard.classList.add('disabled');
         startBtns.classList.add('disabled');
-    }
+    };
 
     const randomGenerator = () =>{
         return Math.floor(Math.random() * 3); 
     }
-    // console.log(randomGenerator())
 
     const playerShipPosition = (number) => {
         const randomBtns = document.querySelector('.random-btn')
@@ -187,31 +191,30 @@ const gameModule = (()=>{
         randomBtns.addEventListener('click',()=>{
             let num = randomGenerator();
             if (num === 0){
-                playerShipChoices1();
-                computerShipChoices1();
+                makePlayerShips();
+                makeCompShips();
                 startGame();
                 disableRndmBtns(randomBtns);
                 startInstruction();
                 hideInstruction(instructions);
             } else if (num === 1){
-                playerShipChoices2();
-                computerShipChoices2();
+                makePlayerShips2();
+                makeCompShips2();
                 startGame();
                 disableRndmBtns(randomBtns);
                 startInstruction();
                 hideInstruction(instructions);
             } else if (num === 2){
-                playerShipChoices3();
-                computerShipChoices3();
+                makePlayerShips3();
+                makeCompShips3();
                 startGame();
                 disableRndmBtns(randomBtns);
                 startInstruction();
                 hideInstruction(instructions);
             }
         })
-    }
+    };
     playerShipPosition(randomGenerator());
-
 
     const startInstruction = () =>{
         const pressStartText = document.querySelector('.press-start');
@@ -229,126 +232,63 @@ const gameModule = (()=>{
     };
 
 //make player ships 1
-    const makePlayerBigShip = () => {
+    const makePlayerShips = () => {
         const playerDivs = document.querySelectorAll('.player-grid');
         // console.log(playerDivs)
         for (let i = 0; i < playerDivs.length;i++){
+            //make huge ship 1
             playerDivs[2].textContent = userList[0].marker;
             playerDivs[12].textContent = userList[0].marker;
             playerDivs[22].textContent = userList[0].marker;
             playerDivs[32].textContent = userList[0].marker;
             playerDivs[42].textContent = userList[0].marker;
-            if (playerDivs[i].textContent === userList[0].marker){
-                playerDivs[i].style.backgroundColor = "gray";
-            }
-
-        }
-    }
-
-    const makePlayerMediumShip = () => {
-        const playerDivs = document.querySelectorAll('.player-grid');
-        for (let i = 0; i < playerDivs.length;i++){
+            //make big ship 1
             playerDivs[58].textContent = userList[0].marker;
             playerDivs[57].textContent = userList[0].marker;
             playerDivs[56].textContent = userList[0].marker;
             playerDivs[55].textContent = userList[0].marker;
-            if (playerDivs[i].textContent === userList[0].marker){
-                playerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    }
-
-    const makePlayerMediumShips = () => {
-        const playerDivs = document.querySelectorAll('.player-grid');
-        for (let i = 0; i < playerDivs.length;i++){
+            //make big ship 1
             playerDivs[96].textContent = userList[0].marker;
             playerDivs[86].textContent = userList[0].marker;
             playerDivs[76].textContent = userList[0].marker;
-            if (playerDivs[i].textContent === userList[0].marker){
-                playerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-
-    const makePlayerSmallShip = () => {
-        const playerDivs = document.querySelectorAll('.player-grid');
-        for (let i = 0; i < playerDivs.length;i++){
+            //make small ship 1
             playerDivs[80].textContent = userList[0].marker;
             playerDivs[81].textContent = userList[0].marker;
             playerDivs[82].textContent = userList[0].marker;
-            if (playerDivs[i].textContent === userList[0].marker){
-                playerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-
-    const makePlayerTinyShip = () => {
-        const playerDivs = document.querySelectorAll('.player-grid');
-        for (let i = 0; i < playerDivs.length;i++){
+            //make tiny ship 1
             playerDivs[25].textContent = userList[0].marker;
             playerDivs[26].textContent = userList[0].marker;
             if (playerDivs[i].textContent === userList[0].marker){
-                playerDivs[i].style.backgroundColor = "gray";
+                playerDivs[i].style.backgroundColor = "gray";;
             }
         }
     };
 
     //make 2nd option player ships
-    const makePlayerBigShip2 = () => {
+    const makePlayerShips2 = () => {
         const playerDivs = document.querySelectorAll('.player-grid');
         // console.log(playerDivs)
         for (let i = 0; i < playerDivs.length;i++){
+            //make huge ship 2
             playerDivs[17].textContent = userList[0].marker;
             playerDivs[27].textContent = userList[0].marker;
             playerDivs[37].textContent = userList[0].marker;
             playerDivs[47].textContent = userList[0].marker;
             playerDivs[57].textContent = userList[0].marker;
-            if (playerDivs[i].textContent === userList[0].marker){
-                playerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    }
-
-    const makePlayerMediumShip2 = () => {
-        const playerDivs = document.querySelectorAll('.player-grid');
-        for (let i = 0; i < playerDivs.length;i++){
+            //make big ship 2
             playerDivs[99].textContent = userList[0].marker;
             playerDivs[89].textContent = userList[0].marker;
             playerDivs[79].textContent = userList[0].marker;
             playerDivs[69].textContent = userList[0].marker;
-            if (playerDivs[i].textContent === userList[0].marker){
-                playerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    }
-
-    const makePlayerMediumShips2 = () => {
-        const playerDivs = document.querySelectorAll('.player-grid');
-        for (let i = 0; i < playerDivs.length;i++){
+            //make big ship 2
             playerDivs[12].textContent = userList[0].marker;
             playerDivs[13].textContent = userList[0].marker;
             playerDivs[14].textContent = userList[0].marker;
-            if (playerDivs[i].textContent === userList[0].marker){
-                playerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-
-    const makePlayerSmallShip2 = () => {
-        const playerDivs = document.querySelectorAll('.player-grid');
-        for (let i = 0; i < playerDivs.length;i++){
+            //make small ship 2
             playerDivs[73].textContent = userList[0].marker;
             playerDivs[74].textContent = userList[0].marker;
             playerDivs[75].textContent = userList[0].marker;
-            if (playerDivs[i].textContent === userList[0].marker){
-                playerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-
-    const makePlayerTinyShip2 = () => {
-        const playerDivs = document.querySelectorAll('.player-grid');
-        for (let i = 0; i < playerDivs.length;i++){
+            //make tiny ship 2
             playerDivs[52].textContent = userList[0].marker;
             playerDivs[53].textContent = userList[0].marker;
             if (playerDivs[i].textContent === userList[0].marker){
@@ -358,61 +298,29 @@ const gameModule = (()=>{
     };
 
     //make 3rd option player ships
-    const makePlayerBigShip3 = () => {
+    const makePlayerShips3 = () => {
         const playerDivs = document.querySelectorAll('.player-grid');
         for (let i = 0; i < playerDivs.length;i++){
+            //make huge ship 3
             playerDivs[73].textContent = userList[0].marker;
             playerDivs[74].textContent = userList[0].marker;
             playerDivs[75].textContent = userList[0].marker;
             playerDivs[76].textContent = userList[0].marker;
             playerDivs[77].textContent = userList[0].marker;
-            if (playerDivs[i].textContent === userList[0].marker){
-                playerDivs[i].style.backgroundColor = "gray";
-            }
-
-        }
-    }
-
-    const makePlayerMediumShip3 = () => {
-        const playerDivs = document.querySelectorAll('.player-grid');
-        for (let i = 0; i < playerDivs.length;i++){
+            //make big ship 3
             playerDivs[15].textContent = userList[0].marker;
             playerDivs[16].textContent = userList[0].marker;
             playerDivs[17].textContent = userList[0].marker;
             playerDivs[18].textContent = userList[0].marker;
-            if (playerDivs[i].textContent === userList[0].marker){
-                playerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    }
-
-    const makePlayerMediumShips3 = () => {
-        const playerDivs = document.querySelectorAll('.player-grid');
-        for (let i = 0; i < playerDivs.length;i++){
+            //make big sihp 3
             playerDivs[20].textContent = userList[0].marker;
             playerDivs[21].textContent = userList[0].marker;
             playerDivs[22].textContent = userList[0].marker;
-            if (playerDivs[i].textContent === userList[0].marker){
-                playerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-
-    const makePlayerSmallShip3 = () => {
-        const playerDivs = document.querySelectorAll('.player-grid');
-        for (let i = 0; i < playerDivs.length;i++){
+            //make small ship 3
             playerDivs[71].textContent = userList[0].marker;
             playerDivs[61].textContent = userList[0].marker;
             playerDivs[51].textContent = userList[0].marker;
-            if (playerDivs[i].textContent === userList[0].marker){
-                playerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-
-    const makePlayerTinyShip3 = () => {
-        const playerDivs = document.querySelectorAll('.player-grid');
-        for (let i = 0; i < playerDivs.length;i++){
+            //make tiny ship 3
             playerDivs[46].textContent = userList[0].marker;
             playerDivs[47].textContent = userList[0].marker;
             if (playerDivs[i].textContent === userList[0].marker){
@@ -421,111 +329,30 @@ const gameModule = (()=>{
         }
     };
 
-    //player choices
-    const playerShipChoices3 = () => {
-        makePlayerBigShip3();
-        makePlayerMediumShip3();
-        makePlayerMediumShips3();
-        makePlayerSmallShip3();
-        makePlayerTinyShip3();
-    }
-
-    const playerShipChoices2 = () => {
-        makePlayerBigShip2();
-        makePlayerMediumShip2();
-        makePlayerMediumShips2();
-        makePlayerSmallShip2();
-        makePlayerTinyShip2();
-    }
-
-    const playerShipChoices1 = () => {
-        makePlayerBigShip();
-        makePlayerMediumShip();
-        makePlayerMediumShips();
-        makePlayerSmallShip();
-        makePlayerTinyShip();
-    }
-
-    //computer choices
-    const computerShipChoices1 = () => {
-        makeCompBigShip();
-        makeCompMediumShip();
-        makeCompSmallShip()
-        makeCompSmallShips();
-        makeCompTinyShip();
-    }
-
-    const computerShipChoices2 = () => {
-        makeCompBigShip2();
-        makeCompMediumShip2();
-        makeCompSmallShip2();
-        makeCompSmallShips2();
-        makeCompTinyShip2();
-    }
-
-    const computerShipChoices3 = () => {
-        makeCompBigShip3();
-        makeCompMediumShip3();
-        makeCompSmallShip3();
-        makeCompSmallShips3();
-        makeCompTinyShip3();
-    }
-
     //make enemy ships
-    const makeCompBigShip = () => {
+    const makeCompShips = () => {
         const computerDivs = document.querySelectorAll('.computer-grid');
         for (let i = 0; i < computerDivs.length;i++){
+            //make huge ship 1
             computerDivs[1].textContent = userList[1].marker;
             computerDivs[2].textContent = userList[1].marker;
             computerDivs[3].textContent = userList[1].marker;
             computerDivs[4].textContent = userList[1].marker;
             computerDivs[5].textContent = userList[1].marker;
-            if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray"
-            }
-        }
-    };
-
-    const makeCompMediumShip = () => {
-        const computerDivs = document.querySelectorAll('.computer-grid');
-        for (let i = 0; i < computerDivs.length;i++){
+            //make big ship 1
             computerDivs[10].textContent = userList[1].marker;
             computerDivs[20].textContent = userList[1].marker;
             computerDivs[30].textContent = userList[1].marker;
             computerDivs[40].textContent = userList[1].marker;
-            if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray"
-            }
-        }
-    };
-
-    const makeCompSmallShip = () => {
-        const computerDivs = document.querySelectorAll('.computer-grid');
-        for (let i = 0; i < computerDivs.length;i++){
+            //make big ship 1
             computerDivs[55].textContent = userList[1].marker;
             computerDivs[56].textContent = userList[1].marker;
             computerDivs[57].textContent = userList[1].marker;
-            if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray"
-            }
-        }
-    };
-
-    const makeCompSmallShips = () => {
-        const computerDivs = document.querySelectorAll('.computer-grid');
-        for (let i = 0; i < computerDivs.length;i++){
+            //make small ship 1
             computerDivs[70].textContent = userList[1].marker;
             computerDivs[71].textContent = userList[1].marker;
             computerDivs[72].textContent = userList[1].marker;
-            if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray"
-            }
-        }
-    };
-
-    const makeCompTinyShip = () => {
-        const computerDivs = document.querySelectorAll('.computer-grid');
-        for (let i = 0; i < computerDivs.length;i++){
+            //make tiny ship 1
             computerDivs[78].textContent = userList[1].marker;
             computerDivs[79].textContent = userList[1].marker;
             if (computerDivs[i].textContent === userList[1].marker){
@@ -535,61 +362,29 @@ const gameModule = (()=>{
     };
 
 //make enemyship 2
-    const makeCompBigShip2 = () => {
+    const makeCompShips2 = () => {
         const computerDivs = document.querySelectorAll('.computer-grid');
         for (let i = 0; i < computerDivs.length;i++){
+            //make huge ship 2
             computerDivs[15].textContent = userList[1].marker;
             computerDivs[25].textContent = userList[1].marker;
             computerDivs[35].textContent = userList[1].marker;
             computerDivs[45].textContent = userList[1].marker;
             computerDivs[55].textContent = userList[1].marker;
-            if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-    // makeCompBigShip2();
-
-    const makeCompMediumShip2 = () => {
-        const computerDivs = document.querySelectorAll('.computer-grid');
-        for (let i = 0; i < computerDivs.length;i++){
+            //make big ship 2
             computerDivs[31].textContent = userList[1].marker;
             computerDivs[41].textContent = userList[1].marker;
             computerDivs[51].textContent = userList[1].marker;
             computerDivs[61].textContent = userList[1].marker;
-            if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-
-    const makeCompSmallShip2 = () => {
-        const computerDivs = document.querySelectorAll('.computer-grid');
-        for (let i = 0; i < computerDivs.length;i++){
+            //make big ship 2
             computerDivs[75].textContent = userList[1].marker;
             computerDivs[76].textContent = userList[1].marker;
             computerDivs[77].textContent = userList[1].marker;
-            if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-
-    const makeCompSmallShips2 = () => {
-        const computerDivs = document.querySelectorAll('.computer-grid');
-        for (let i = 0; i < computerDivs.length;i++){
+            //make small ship 2
             computerDivs[80].textContent = userList[1].marker;
             computerDivs[81].textContent = userList[1].marker;
             computerDivs[82].textContent = userList[1].marker;
-            if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-
-    const makeCompTinyShip2 = () => {
-        const computerDivs = document.querySelectorAll('.computer-grid');
-        for (let i = 0; i < computerDivs.length;i++){
+            //make tiny ship 2
             computerDivs[8].textContent = userList[1].marker;
             computerDivs[9].textContent = userList[1].marker;
             if (computerDivs[i].textContent === userList[1].marker){
@@ -599,60 +394,29 @@ const gameModule = (()=>{
     };
 
 //make enemyship 3
-    const makeCompBigShip3 = () => {
+    const makeCompShips3 = () => {
         const computerDivs = document.querySelectorAll('.computer-grid');
         for (let i = 0; i < computerDivs.length;i++){
+            //make huge ship 3
             computerDivs[25].textContent = userList[1].marker;
             computerDivs[26].textContent = userList[1].marker;
             computerDivs[27].textContent = userList[1].marker;
             computerDivs[28].textContent = userList[1].marker;
             computerDivs[29].textContent = userList[1].marker;
-            if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-
-    const makeCompMediumShip3 = () => {
-        const computerDivs = document.querySelectorAll('.computer-grid');
-        for (let i = 0; i < computerDivs.length;i++){
+            //make big ship 3
             computerDivs[55].textContent = userList[1].marker;
             computerDivs[65].textContent = userList[1].marker;
             computerDivs[75].textContent = userList[1].marker;
             computerDivs[85].textContent = userList[1].marker;
-            if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-
-    const makeCompSmallShip3 = () => {
-        const computerDivs = document.querySelectorAll('.computer-grid');
-        for (let i = 0; i < computerDivs.length;i++){
+            // make big ship 3
             computerDivs[41].textContent = userList[1].marker;
             computerDivs[42].textContent = userList[1].marker;
             computerDivs[43].textContent = userList[1].marker;
-            if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-
-    const makeCompSmallShips3 = () => {
-        const computerDivs = document.querySelectorAll('.computer-grid');
-        for (let i = 0; i < computerDivs.length;i++){
+            // make small ship 3
             computerDivs[70].textContent = userList[1].marker;
             computerDivs[80].textContent = userList[1].marker;
             computerDivs[90].textContent = userList[1].marker;
-            if (computerDivs[i].textContent === userList[1].marker){
-                computerDivs[i].style.backgroundColor = "gray";
-            }
-        }
-    };
-
-    const makeCompTinyShip3 = () => {
-        const computerDivs = document.querySelectorAll('.computer-grid');
-        for (let i = 0; i < computerDivs.length;i++){
+            // make tiny ship 3
             computerDivs[1].textContent = userList[1].marker;
             computerDivs[2].textContent = userList[1].marker;
             if (computerDivs[i].textContent === userList[1].marker){
@@ -662,49 +426,3 @@ const gameModule = (()=>{
     };
 
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// let playerTurn = true;
-// let computerTurn = false;
-// const playerDivs = document.querySelectorAll('.player-grid');
-// const computerDivs = document.querySelectorAll('.computer-grid');
-
-// if (!computerTurn && playerTurn){
-//     playerDivs.forEach((playerDiv)=>{
-//         playerTurn = false;
-//         computerTurn = true;
-//         console.log(playerTurn, computerTurn)
-//         playerDiv.addEventListener('click',()=>{
-//             playerDiv.style.backgroundColor = "red"
-//             playerDiv.textContent = hitMarker;
-//             playerHP--;
-//             console.log(playerHP)
-//         })
-     
-
-//     })
-// } 
-// if (!playerTurn && computerTurn){
-//     computerDivs.forEach((computerDiv)=>{
-//         playerTurn = true;
-//         computerTurn = false;
-//         console.log(playerTurn, computerTurn)
-//         computerDiv.addEventListener('click',()=>{
-//             computerDiv.style.backgroundColor = "green"
-//         })
-       
-
-//     })
-// }
