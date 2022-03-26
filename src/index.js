@@ -35,7 +35,7 @@ const gameModule = (()=>{
                 playerBoard.classList.remove('disabled');
                 computerBoard.classList.remove('disabled');
                 gameStartedText.textContent = "Game Started!";
-                playerTurnText.textContent = "Player 1 Turn";
+                playerTurnText.textContent = "Player's Turn";
                 pressStartText.style.visibility = "hidden";
                 startBtns.classList.add('disabled');
             }
@@ -71,7 +71,6 @@ const gameModule = (()=>{
 
     const playerAttackMarker = () => {
         const computerDivs = document.querySelectorAll('.computer-grid');
-        const win = document.querySelector('.win');
         const gameStartedText = document.querySelector('.game-started');
         computerDivs.forEach((computerDiv)=>{
             computerDiv.addEventListener('click',()=>{
@@ -79,14 +78,14 @@ const gameModule = (()=>{
                     if (computerDiv.textContent === userList[1].marker){
                         computerDiv.style.backgroundColor = "red";
                         computerDiv.textContent = hitMarker;
-                        playerTurnText.textContent = "Player 2 Turn";
+                        playerTurnText.textContent = "Computer's Turn";
                         enemyShipHitText();
                         userList[1].hp--;
                         console.log(userList[1].hp)
                         playerTurn = false;
                         computerTurn = true;
                         if (userList[1].hp === 0){
-                            win.textContent = "You Win!";
+                            winText();
                             gameStartedText.style.visibility = "hidden";
                             pauseBoard();
                         } 
@@ -94,11 +93,12 @@ const gameModule = (()=>{
                         return;
                     } else {
                         computerDiv.style.backgroundColor = "blue";
-                        missText.textContent = "MISSED!";
-                        playerTurnText.textContent = "Player 2 Turn";
+                        missText.textContent = "PLAYER MISSED!";
+                        missText.style.color = "blue";
+                        playerTurnText.textContent = "Computer's Turn";
                         setTimeout(() => {
                             missText.textContent = "";
-                        }, 1000);
+                        }, 1800);
                         playerTurn = false;
                         computerTurn = true;
                     } 
@@ -110,7 +110,6 @@ const gameModule = (()=>{
 
     const computerAttackMarker = () => {
         const playerDivs = document.querySelectorAll('.player-grid');
-        const lost = document.querySelector('.lost');
         const gameStartedText = document.querySelector('.game-started');
         playerDivs.forEach((playerDiv)=>{
             playerDiv.addEventListener('click',()=>{
@@ -118,7 +117,7 @@ const gameModule = (()=>{
                     if (playerDiv.textContent === userList[0].marker){
                         playerDiv.style.backgroundColor = "red";
                         playerDiv.textContent = hitMarker;
-                        playerTurnText.textContent = "Player 1 Turn";
+                        playerTurnText.textContent = "Player's Turn";
                         playerShipHitText();
                         userList[0].hp--;
                         console.log(userList[0].hp)
@@ -126,7 +125,7 @@ const gameModule = (()=>{
                         playerTurn = true;
                         console.log(computerTurn, playerTurn);
                     if (userList[0].hp === 0){
-                        lost.textContent = "You Lost!";
+                        loseText();
                         gameStartedText.style.visibility = "hidden";
                         pauseBoard();
                     } 
@@ -134,11 +133,12 @@ const gameModule = (()=>{
                     return;
                 } else {
                     playerDiv.style.backgroundColor = "blue";
-                    missText.textContent = "MISSED!";
-                    playerTurnText.textContent = "Player 1 Turn";
+                    missText.textContent = "COMPUTER MISSED!";
+                    missText.style.color = "blue"
+                    playerTurnText.textContent = "Player's' Turn";
                     setTimeout(() => {
                         missText.textContent = "";
-                    }, 1000);
+                    }, 1800);
                     computerTurn = false;
                     playerTurn = true;
                 } 
@@ -150,16 +150,18 @@ const gameModule = (()=>{
 
     const playerShipHitText = () =>{
         hitText.textContent = "PLAYER SHIP HIT!";
+        hitText.style.color = "red"
         setTimeout(() => {
             hitText.textContent = "";
-        }, 1500);
+        }, 1800);
     };
 
     const enemyShipHitText = () =>{
         hitText.textContent = "ENEMY SHIP HIT!";
+        hitText.style.color = "red"
         setTimeout(() => {
             hitText.textContent = "";
-        }, 1500);
+        }, 1800);
     };
 
     const resetButton = () => {
@@ -234,6 +236,21 @@ const gameModule = (()=>{
     const disableRndmBtns = (randomBtns) => {
         randomBtns.classList.add('disabled');
     };
+
+    const winText = () =>{
+        const win = document.querySelector('.win');
+        win.textContent = "You Win!";
+        win.style.color = "BLUE";
+        playerTurnText.textContent = "";
+    }
+
+    const loseText = () => {
+        const lost = document.querySelector('.lost');
+        lost.textContent = "You Lost!";
+        lost.style.color = "red";
+        playerTurnText.textContent = "";
+
+    }
 ////////////////////////
 ////MAKE PLAYER SHIP////
 ////////////////////////
