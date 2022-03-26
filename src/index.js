@@ -10,7 +10,11 @@ const gameModule = (()=>{
 
 
     let rotate = false;
+    let hitMarker = 1;
+    let playerHP = 17;
+    let computerHP = 17;
     let userList = [];
+    let ready = false;
 
     //submit users
     const addUsers = () => {
@@ -39,97 +43,48 @@ const gameModule = (()=>{
     };
     makeComputerGrid(10,10);
 
-    const makePlayerBigShip = () => {
-        const playerDivs = document.querySelectorAll('.player-grid')
-        // console.log(playerDivs)
-        for (let i = 0; i < playerDivs.length;i++){
-                playerDivs[2].textContent = "O"
-                playerDivs[2].style.backgroundColor = "gray"
-                playerDivs[12].textContent = "O"
-                playerDivs[12].style.backgroundColor = "gray"
-                playerDivs[22].textContent = "O"
-                playerDivs[22].style.backgroundColor = "gray"
-                playerDivs[32].textContent = "O"
-                playerDivs[32].style.backgroundColor = "gray"
-                playerDivs[42].textContent = "O"
-                playerDivs[42].style.backgroundColor = "gray"
-        }
-    }
-    makePlayerBigShip();
-
-    const makePlayerMediumShip = () => {
-        const playerDivs = document.querySelectorAll('.player-grid')
-        for (let i = 0; i < playerDivs.length;i++){
-            playerDivs[58].textContent = "O"
-            playerDivs[58].style.backgroundColor = "gray"
-            playerDivs[57].textContent = "O"
-            playerDivs[57].style.backgroundColor = "gray"
-            playerDivs[56].textContent = "O"
-            playerDivs[56].style.backgroundColor = "gray"
-            playerDivs[55].textContent = "O"
-            playerDivs[55].style.backgroundColor = "gray"
-        }
-    }
-    makePlayerMediumShip();
-
-    const makePlayerMediumShip2 = () => {
-        const playerDivs = document.querySelectorAll('.player-grid')
-        for (let i = 0; i < playerDivs.length;i++){
-            playerDivs[96].textContent = "O"
-            playerDivs[96].style.backgroundColor = "gray"
-            playerDivs[86].textContent = "O"
-            playerDivs[86].style.backgroundColor = "gray"
-            playerDivs[76].textContent = "O"
-            playerDivs[76].style.backgroundColor = "gray"
-        }
+    const playerAttackMarker = () => {
+        const computerDivs = document.querySelectorAll('.computer-grid');
+        const win = document.querySelector('.win');
+        computerDivs.forEach((computerDiv)=>{
+            computerDiv.addEventListener('click',()=>{
+                if (computerDiv.textContent === userList[1].marker){
+                    computerDiv.style.backgroundColor = "red"
+                    computerDiv.textContent = hitMarker;
+                    computerHP--
+                    console.log(computerHP)
+                    if (computerHP === 0){
+                        win.textContent = "You Win!"
+                    } 
+                } else if(computerDiv.textContent === "1"){
+                    return
+                } else {
+                    computerDiv.style.backgroundColor = "blue"
+                } 
+            })
+        })
     };
-    makePlayerMediumShip2();
-
-
-    const makePlayerSmallShip = () => {
-        const playerDivs = document.querySelectorAll('.player-grid')
-        for (let i = 0; i < playerDivs.length;i++){
-            playerDivs[80].textContent = "O"
-            playerDivs[80].style.backgroundColor = "gray"
-            playerDivs[81].textContent = "O"
-            playerDivs[81].style.backgroundColor = "gray"
-            playerDivs[82].textContent = "O"
-            playerDivs[82].style.backgroundColor = "gray"
-        }
-    };
-    makePlayerSmallShip();
-
-    const makePlayerTinyShip = () => {
-        const playerDivs = document.querySelectorAll('.player-grid');
-        for (let i = 0; i < playerDivs.length;i++){
-            playerDivs[25].textContent = "O"
-            playerDivs[25].style.backgroundColor = "gray"
-            playerDivs[26].textContent = "O"
-            playerDivs[26].style.backgroundColor = "gray"
-        }
-    };
-    makePlayerTinyShip();
-
-    // const playerAttackMarker = () => {
-    //     const computerDivs = document.querySelectorAll('.computer-grid');
-    //     computerDivs.forEach((computerDiv)=>{
-    //         computerDiv.addEventListener('click',()=>{
-    //             computerDiv.style.backgroundColor = "blue";
-    //         })
-    //     })
-    // };
-    // playerAttackMarker();
+    playerAttackMarker();
 
 
     const computerAttackMarker = () => {
         const playerDivs = document.querySelectorAll('.player-grid');
+        const lost = document.querySelector('.lost');
         playerDivs.forEach((playerDiv)=>{
             playerDiv.addEventListener('click',()=>{
-                if (playerDiv.textContent === "O"){
+                if (playerDiv.textContent === userList[0].marker){
                     playerDiv.style.backgroundColor = "red"
+                    playerDiv.textContent = hitMarker;
+                    playerHP--
+                    console.log(playerHP)
+                    if (playerHP === 0){
+                        lost.textContent = "You Lost!"
+                    } 
+                } else if(playerDiv.textContent === "1"){
+                    return
                 } else {
-                    playerDiv.style.backgroundColor = "Blue"
-                }
+                    playerDiv.style.backgroundColor = "blue"
+                } 
             })
         })
     };
@@ -142,6 +97,150 @@ const gameModule = (()=>{
         })
     }
     resetButton();
+
+
+
+    const makePlayerBigShip = () => {
+        const playerDivs = document.querySelectorAll('.player-grid')
+        // console.log(playerDivs)
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[2].textContent = userList[0].marker;
+            playerDivs[12].textContent = userList[0].marker;
+            playerDivs[22].textContent = userList[0].marker;
+            playerDivs[32].textContent = userList[0].marker;
+            playerDivs[42].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+
+        }
+    }
+    makePlayerBigShip();
+
+    const makePlayerMediumShip = () => {
+        const playerDivs = document.querySelectorAll('.player-grid')
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[58].textContent = userList[0].marker;
+            playerDivs[57].textContent = userList[0].marker;
+            playerDivs[56].textContent = userList[0].marker;
+            playerDivs[55].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    }
+    makePlayerMediumShip();
+
+    const makePlayerMediumShip2 = () => {
+        const playerDivs = document.querySelectorAll('.player-grid')
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[96].textContent = userList[0].marker;
+            playerDivs[86].textContent = userList[0].marker;
+            playerDivs[76].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    };
+    makePlayerMediumShip2();
+
+    const makePlayerSmallShip = () => {
+        const playerDivs = document.querySelectorAll('.player-grid')
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[80].textContent = userList[0].marker;
+            playerDivs[81].textContent = userList[0].marker;
+            playerDivs[82].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    };
+    makePlayerSmallShip();
+
+    const makePlayerTinyShip = () => {
+        const playerDivs = document.querySelectorAll('.player-grid');
+        for (let i = 0; i < playerDivs.length;i++){
+            playerDivs[25].textContent = userList[0].marker;
+            playerDivs[26].textContent = userList[0].marker;
+            if (playerDivs[i].textContent === userList[0].marker){
+                playerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    };
+    makePlayerTinyShip();
+
+
+    //make enemy ships
+    const makeCompBigShip = () => {
+        const computerDivs = document.querySelectorAll('.computer-grid');
+        for (let i = 0; i < computerDivs.length;i++){
+            computerDivs[1].textContent = userList[1].marker;
+            computerDivs[2].textContent = userList[1].marker;
+            computerDivs[3].textContent = userList[1].marker;
+            computerDivs[4].textContent = userList[1].marker;
+            computerDivs[5].textContent = userList[1].marker;
+            if (computerDivs[i].textContent === userList[1].marker){
+                computerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    }
+    makeCompBigShip();
+
+    const makeCompMediumShip = () => {
+        const computerDivs = document.querySelectorAll('.computer-grid');
+        for (let i = 0; i < computerDivs.length;i++){
+            computerDivs[10].textContent = userList[1].marker;
+            computerDivs[20].textContent = userList[1].marker;
+            computerDivs[30].textContent = userList[1].marker;
+            computerDivs[40].textContent = userList[1].marker;
+            if (computerDivs[i].textContent === userList[1].marker){
+                computerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    }
+    makeCompMediumShip();
+
+    const makeCompSmallShip = () => {
+        const computerDivs = document.querySelectorAll('.computer-grid');
+        for (let i = 0; i < computerDivs.length;i++){
+            computerDivs[55].textContent = userList[1].marker;
+            computerDivs[56].textContent = userList[1].marker;
+            computerDivs[57].textContent = userList[1].marker;
+            if (computerDivs[i].textContent === userList[1].marker){
+                computerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    }
+    makeCompSmallShip();
+
+    const makeCompSmallShip2 = () => {
+        const computerDivs = document.querySelectorAll('.computer-grid');
+        for (let i = 0; i < computerDivs.length;i++){
+            computerDivs[70].textContent = userList[1].marker;
+            computerDivs[71].textContent = userList[1].marker;
+            computerDivs[72].textContent = userList[1].marker;
+            if (computerDivs[i].textContent === userList[1].marker){
+                computerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    }
+    makeCompSmallShip2();
+
+    const makeCompTinyShip = () => {
+        const computerDivs = document.querySelectorAll('.computer-grid');
+        for (let i = 0; i < computerDivs.length;i++){
+            computerDivs[78].textContent = userList[1].marker;
+            computerDivs[79].textContent = userList[1].marker;
+            if (computerDivs[i].textContent === userList[1].marker){
+                computerDivs[i].style.backgroundColor = "gray"
+            }
+        }
+    }
+    makeCompTinyShip();
+
+
+
+
 
 })();
 
@@ -193,4 +292,8 @@ const gameModule = (()=>{
 //     playerDivs[5].style.backgroundColor = "gray"
 //     playerDivs[6].textContent = "O"
 //     playerDivs[6].style.backgroundColor = "gray"
+// }
+
+// else {
+//     playerDiv.style.backgroundColor = "Blue"
 // }
