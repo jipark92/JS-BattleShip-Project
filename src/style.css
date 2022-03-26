@@ -143,23 +143,36 @@ body {
     transform: translateY(-3px);
 }
 
-.big-ship {
-    background-color: black;
-    display: grid;
-    height: 25px;
+.game-info-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 55%;
 }
+.game-status{
 
-.medium-ship {
-
-}
-
-.small-ship {
 
 }
 
-.tiny-ship{
+.instruction-container{
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 55%;
+}
 
+.instruction {
+    margin: 5rem;
+}
 
+.game-started {
+    color: green
+}
+
+.press-start {
+    color: blue;
 }
 
 .disabled {
