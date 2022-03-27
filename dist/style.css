@@ -25,12 +25,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 500ms ease-in-out;
     margin: 1.5rem;
 }
 
 .intruction-container {
-    transition: 500ms ease-in-out;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,9 +42,7 @@ body {
     min-height: 75%;
     max-width: 100%;
     gap: 5rem;
-    margin: 1.5rem;
     flex-wrap: wrap;
-    transition: 500ms ease-in-out;
 }
 
 .player p {
@@ -92,7 +88,7 @@ body {
 }
 
 .button-container {
-    margin: 2rem;
+    margin: 1rem;
 }
 
 .reset-btn {
@@ -100,10 +96,9 @@ body {
     width: 6rem;
     font-size: 1.2rem;
     font-weight: 1000;
-    border: 2px solid black;
+    border: 2px solid red;
     border-radius: 25px;
     background-color: white;
-    transition: 250ms ease-in-out;
 }
 
 .reset-btn:hover {
@@ -116,10 +111,9 @@ body {
     width: 6rem;
     font-size: 1.2rem;
     font-weight: 1000;
-    border: 2px solid black;
+    border: 2px solid red;
     border-radius: 25px;
     background-color: white;
-    transition: 250ms ease-in-out;
 }
 
 .start-btn:hover {
@@ -132,13 +126,53 @@ body {
     width: 6rem;
     font-size: 1.2rem;
     font-weight: 1000;
-    border: 2px solid black;
+    border: 2px solid red;
     border-radius: 25px;
     background-color: white;
-    transition: 250ms ease-in-out;
 }
 
 .random-btn:hover {
+    transform: scale(1.1);
+    transform: translateY(-3px);
+}
+
+.against-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin:2rem 0 2rem 0; */
+
+}
+
+.againstcpu-btn {
+    min-height: 2rem;
+    width: 7rem;
+    font-size: 1.2rem;
+    font-weight: 1000;
+    border: 2px solid green;
+    border-radius: 25px;
+    background-color: white;
+    margin-left: 1rem;
+}
+
+.againstcpu-btn:hover {
+    transform: scale(1.1);
+    transform: translateY(-3px);
+}
+
+.againstplayer-btn {
+    margin-right: 1rem;
+    min-height: 2rem;
+    width: 5rem;
+    font-size: 1.2rem;
+    font-weight: 1000;
+    border: 2px solid green;
+    border-radius: 25px;
+    background-color: white;
+}
+
+.againstplayer-btn:hover {
     transform: scale(1.1);
     transform: translateY(-3px);
 }
@@ -149,7 +183,6 @@ body {
     flex-direction: column;
     align-items: center;
     width: 55%;
-    transition: 250ms ease-in-out;
 
 }
 .game-status{
@@ -164,16 +197,17 @@ body {
 }
 
 .instruction-container{
-    transition: 250ms ease-in-out;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 55%;
+    justify-content: space-evenly;
+    min-width: 680px;
+    
+}
+
+.instruct {
 }
 
 .instruction {
-    padding-top: 2rem;
+    padding-top: 0.8rem;
 }
 
 .game-started {
@@ -187,4 +221,33 @@ body {
 .disabled {
     cursor: not-allowed;
     pointer-events: none;
+}
+
+.water-container{
+    position:absolute;
+    top: 90%;
+    
+    width: 100vw;
+    height: 20vh;
+}
+
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+#animation{
+    transition: 250ms ease-in-out;
+}
+#animation:hover {
+    transform: translateY(-5px);
+}
+
+#animation-2 {
+    transition: 500ms ease-in-out;
+}
+
+#animation-2:hover{
+    transform: translateY(-50px);
 }
