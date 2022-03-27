@@ -74,6 +74,7 @@ const gameModule = (()=>{
         const gameStartedText = document.querySelector('.game-started');
         computerDivs.forEach((computerDiv)=>{
             computerDiv.addEventListener('click',()=>{
+                computerRandomAttack()
                 if(playerTurn && !computerTurn){
                     if (computerDiv.textContent === userList[1].marker){
                         computerDiv.style.backgroundColor = "red";
@@ -81,7 +82,7 @@ const gameModule = (()=>{
                         playerTurnText.textContent = "Computer's Turn";
                         enemyShipHitText();
                         userList[1].hp--;
-                        console.log(userList[1].hp)
+                        console.log(userList[1].hp, "enemy hp")
                         playerTurn = false;
                         computerTurn = true;
                         if (userList[1].hp === 0){
@@ -90,24 +91,68 @@ const gameModule = (()=>{
                             pauseBoard();
                         } 
                     } else if(computerDiv.textContent === "1"){
+                        playerTurn = false;
+                        computerTurn = true;
                         return;
                     } else {
                         computerDiv.style.backgroundColor = "blue";
+                        computerDiv.textContent = "2"
                         missText.textContent = "PLAYER MISSED!";
                         missText.style.color = "blue";
+                        console.log('missed')
                         playerTurnText.textContent = "Computer's Turn";
                         setTimeout(() => {
                             missText.textContent = "";
-                        }, 1800);
+                        }, 3000);
                         playerTurn = false;
                         computerTurn = true;
+                        if (computerDiv.textContent === "2"){
+                            return;
+                        }
                     } 
+                    
                 }
             })
         })
     };
     playerAttackMarker()
 
+    //computer
+    const computerRandomAttack = () => {
+        const playerDivs = document.querySelectorAll('.player-grid');
+        const gameStartedText = document.querySelector('.game-started');
+
+        let randomAttack = Math.floor(Math.random()*100)
+
+        if (computerTurn){
+            if(playerDivs[randomAttack].textContent === "1"){
+                return;
+            } 
+            playerDivs[randomAttack].style.backgroundColor = "blue";
+            playerTurn = true;
+            computerTurn = false;
+
+
+            if (playerDivs[randomAttack].textContent === userList[0].marker){
+                playerDivs[randomAttack].style.backgroundColor = "red";
+                playerDivs[randomAttack].textContent = hitMarker;
+                playerShipHitText();
+                userList[0].hp--
+                console.log(userList[0].hp, "player hp")
+                if(userList[0].hp === 0){
+                    loseText();
+                    gameStartedText.style.visibility = "hidden";
+                    pauseBoard();
+                }
+            } 
+        } 
+    }
+    // computerRandomAttack()
+
+    
+
+
+    //player 2
     const computerAttackMarker = () => {
         const playerDivs = document.querySelectorAll('.player-grid');
         const gameStartedText = document.querySelector('.game-started');
@@ -138,7 +183,7 @@ const gameModule = (()=>{
                     playerTurnText.textContent = "Player's' Turn";
                     setTimeout(() => {
                         missText.textContent = "";
-                    }, 1800);
+                    }, 3000);
                     computerTurn = false;
                     playerTurn = true;
                 } 
@@ -146,22 +191,29 @@ const gameModule = (()=>{
             })
         })
     };
-    computerAttackMarker();
+    // computerAttackMarker();
+
+
+
+ 
+
+
 
     const playerShipHitText = () =>{
         hitText.textContent = "PLAYER SHIP HIT!";
         hitText.style.color = "red"
         setTimeout(() => {
             hitText.textContent = "";
-        }, 1800);
+        }, 3000);
     };
 
     const enemyShipHitText = () =>{
         hitText.textContent = "ENEMY SHIP HIT!";
         hitText.style.color = "red"
+
         setTimeout(() => {
             hitText.textContent = "";
-        }, 1800);
+        }, 3000);
     };
 
     const resetButton = () => {
@@ -183,34 +235,33 @@ const gameModule = (()=>{
         return Math.floor(Math.random() * 4); 
     }
 
-    const playerShipPosition = (number) => {
+    const playerShipPosition = (randomAttack) => {
         const randomBtns = document.querySelector('.random-btn')
         const instructions = document.querySelectorAll('.instruct');
         randomBtns.addEventListener('click',()=>{
-            let num = randomGenerator();
-            console.log(num)
-            if (num === 0){
+            let randomAttack = randomGenerator();
+            if (randomAttack === 0){
                 makePlayerShips();
                 makeCompShips();
                 startGame();
                 disableRndmBtns(randomBtns);
                 startInstruction();
                 hideInstruction(instructions);
-            } else if (num === 1){
+            } else if (randomAttack === 1){
                 makePlayerShips2();
                 makeCompShips2();
                 startGame();
                 disableRndmBtns(randomBtns);
                 startInstruction();
                 hideInstruction(instructions);
-            } else if (num === 2){
+            } else if (randomAttack === 2){
                 makePlayerShips3();
                 makeCompShips3();
                 startGame();
                 disableRndmBtns(randomBtns);
                 startInstruction();
                 hideInstruction(instructions);
-            } else if (num === 3){
+            } else if (randomAttack === 3){
                 makePlayerShips4();
                 makeCompShips4();
                 startGame();
