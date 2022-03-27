@@ -86,6 +86,12 @@ const gameModule = (()=>{
         computerDivs.forEach((computerDiv)=>{
             computerDiv.addEventListener('click',()=>{
                 computerRandomAttack()
+                if (computerDiv.textContent === "2"){
+                    return;
+                }
+                if (computerDiv.textContent === "1"){
+                    return;
+                }
                 if(playerTurn && !opponentTurn){
                     if (computerDiv.textContent === userList[1].marker){
                         computerDiv.style.backgroundColor = "red";
@@ -114,9 +120,6 @@ const gameModule = (()=>{
                         playerTurn = false;
                         opponentTurn = true;
                         computerRandomAttack();
-                        if (computerDiv.textContent === "2"){
-                            return;
-                        }
                     } 
                     
                 }
@@ -131,6 +134,12 @@ const gameModule = (()=>{
 
         computerDivs.forEach((computerDiv)=>{
             computerDiv.addEventListener('click',()=>{
+                if (computerDiv.textContent === "2"){
+                    return;
+                }
+                if (computerDiv.textContent === "1"){
+                    return;
+                }
                 if(playerTurn && !opponentTurn){
                     if (computerDiv.textContent === userList[1].marker){
                         computerDiv.style.backgroundColor = "red";
@@ -170,6 +179,13 @@ const gameModule = (()=>{
 
         let randomAttack = Math.floor(Math.random()*100);
 
+        if (playerDivs[randomAttack].textContent === "2"){
+            return;
+        }
+        if (playerDivs[randomAttack].textContent === "1"){
+            return;
+        }
+
         if (opponentTurn){
             if(playerDivs[randomAttack].textContent === "1"){
                 return;
@@ -204,6 +220,12 @@ const gameModule = (()=>{
         
         playerDivs.forEach((playerDiv)=>{
             playerDiv.addEventListener('click',()=>{
+                if (playerDiv.textContent === "2"){
+                    return;
+                }
+                if (playerDiv.textContent === "1"){
+                    return;
+                }
                 if(opponentTurn){
                     if (playerDiv.textContent === userList[0].marker){
                         playerDiv.style.backgroundColor = "red";
@@ -222,6 +244,7 @@ const gameModule = (()=>{
                     return;
                 } else {
                     playerDiv.style.backgroundColor = "blue";
+                    playerDiv.textContent = "2";
                     logLists("Player 2: Missed!");
                     playerTurnText.textContent = "Player 1's Turn";
                     opponentTurn = false;
@@ -366,12 +389,10 @@ const gameModule = (()=>{
         logs.textContent = str;
     };
 
+    //bubble animation function
     const wallAnimationFunction = () => {
         const canvas = document.querySelector('canvas');
         const ctx = canvas.getContext('2d');
-
-        console.log('clicked')
-        
         const WIDTH = document.documentElement.clientWidth;
         const HEIGHT = document.documentElement.clientHeight;
         
@@ -391,11 +412,11 @@ const gameModule = (()=>{
             ctx.fill();
             }
         }
-        return{draw}
+        return{draw};
     }
     
     const bodyAnimation = () => {
-        container.addEventListener('click',wallAnimationFunction().draw)
+        container.addEventListener('click',wallAnimationFunction().draw);
     }
     bodyAnimation();
 
