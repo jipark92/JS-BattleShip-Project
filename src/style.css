@@ -270,6 +270,10 @@ body {
     width: 100%;
     overflow-y: scroll;
 }
+.log-list p {
+    border-top: 1px solid black;
+    margin-top: 0.3rem;
+}
 
 /* dom */
 .logLists{
