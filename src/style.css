@@ -142,7 +142,6 @@ body {
     justify-content: center;
     align-items: center;
     /* margin:2rem 0 2rem 0; */
-
 }
 
 .againstcpu-btn {
@@ -150,7 +149,7 @@ body {
     width: 7rem;
     font-size: 1.2rem;
     font-weight: 1000;
-    border: 2px solid green;
+    border: 2px solid blue;
     border-radius: 25px;
     background-color: white;
     margin-left: 1rem;
@@ -167,7 +166,7 @@ body {
     width: 5rem;
     font-size: 1.2rem;
     font-weight: 1000;
-    border: 2px solid green;
+    border: 2px solid blue;
     border-radius: 25px;
     background-color: white;
 }
@@ -183,7 +182,6 @@ body {
     flex-direction: column;
     align-items: center;
     width: 55%;
-
 }
 .game-status{
     display: flex;
@@ -200,7 +198,6 @@ body {
     display: flex;
     justify-content: space-evenly;
     min-width: 680px;
-    
 }
 
 .instruct {
@@ -226,11 +223,9 @@ body {
 .water-container{
     position:absolute;
     top: 90%;
-    
     width: 100vw;
     height: 20vh;
 }
-
 
 img {
     width: 100%;
