@@ -73,8 +73,10 @@ const gameModule = (()=>{
         const computerDivs = document.querySelectorAll('.computer-grid');
         const gameStartedText = document.querySelector('.game-started');
         computerDivs.forEach((computerDiv)=>{
+        
             computerDiv.addEventListener('click',()=>{
                 computerRandomAttack()
+
                 if(playerTurn && !computerTurn){
                     if (computerDiv.textContent === userList[1].marker){
                         computerDiv.style.backgroundColor = "red";
@@ -85,6 +87,8 @@ const gameModule = (()=>{
                         console.log(userList[1].hp, "enemy hp")
                         playerTurn = false;
                         computerTurn = true;
+                        computerRandomAttack()
+
                         if (userList[1].hp === 0){
                             winText();
                             gameStartedText.style.visibility = "hidden";
@@ -93,6 +97,8 @@ const gameModule = (()=>{
                     } else if(computerDiv.textContent === "1"){
                         playerTurn = false;
                         computerTurn = true;
+                        computerRandomAttack()
+
                         return;
                     } else {
                         computerDiv.style.backgroundColor = "blue";
@@ -106,6 +112,7 @@ const gameModule = (()=>{
                         }, 3000);
                         playerTurn = false;
                         computerTurn = true;
+                        computerRandomAttack()
                         if (computerDiv.textContent === "2"){
                             return;
                         }
@@ -127,11 +134,11 @@ const gameModule = (()=>{
         if (computerTurn){
             if(playerDivs[randomAttack].textContent === "1"){
                 return;
-            } 
+            } else {
             playerDivs[randomAttack].style.backgroundColor = "blue";
             playerTurn = true;
             computerTurn = false;
-
+            }
 
             if (playerDivs[randomAttack].textContent === userList[0].marker){
                 playerDivs[randomAttack].style.backgroundColor = "red";
@@ -195,7 +202,29 @@ const gameModule = (()=>{
 
 
 
- 
+// const lost = document.querySelector('.lost')
+
+//     const againstWhoFunction = () =>{
+//         const againstPlayerBtns = document.querySelector('.againstplayer-btn');
+//         const againstComputerBtns = document.querySelector('.againstcpu-btn');
+//         let chosen = true;
+
+    
+//         againstPlayerBtns.addEventListener('click',()=>{
+//             console.log('clickedp2')
+//             lost.textContent = "Chose Against Player 2"
+//             player2AttackMarker();
+
+//         })
+
+//         againstComputerBtns.addEventListener('click',()=>{
+//             console.log('clickedcpu')
+//             lost.textContent = "Chose Against Broken Bot"
+//             computerRandomAttack()
+//         })
+//     }   
+//     againstWhoFunction();
+
 
 
 
