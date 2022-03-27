@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BattleShip Game Project</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js" defer></script>
+</head>
+<body>
+    <main class="container">
+        <header class="title" id="animation">
+            <h1>BATTLESHIP</h1>
+        </header>
+
+        <div class="board-container">
+            <div class="player">
+                <p id="animation">Player</p>
+                <div class="player-board"></div>
+            </div>
+
+            <div class="computer">
+                <p id="animation">Computer</p>
+                <div class="computer-board"></div>
+            </div>
+        </div>  
+
+        <div class="button-container">
+            <button class="random-btn">Random</button>
+            <button class="start-btn">Start</button>
+            <button class="reset-btn">Reset</button>
+        </div>
+
+        <div class="game-info-container">
+            <div class="game-status">
+                <h2 class="lost"></h2>
+                <h2 class="win"></H2>
+                <h2 class="hit-text"></h2>
+                <h2 class="miss-text"></h2>
+                <h2 class="press-start"></h2>
+                <h2 class="game-started"></h2>
+                <h2 class="player-turn"></h2>
+                <h2 class="press-restart"></h2>
+            </div>
+        </div>
+
+        <div class="instruction-container">
+            <h3 class="instruct">Instruction</h3>
+            <p class="instruct">.</p>
+            <p class="instruct">.</p>
+            <p class="instruct">.</p>
+            <h4 class="instruct">Press RANDOM to set up your randomized ship location</h4>
+            <h4 class="instruct">Then press START to start the game!</h4>
+            <div class="instruction">
+                <p>Indicators: </p>
+                <p style="color:red">Red = Hit</p>    
+                <p style="color:blue">Blue = Miss</p>
+                <p style="color:rgb(71, 63, 63)">Gray = Ships</p>    
+            </div>
+        </div>
+
+        <footer class="water-container" id="animation-2">
+            <img src="water.png">
+        </footer>
+    </main>
+</body>
+</html>
