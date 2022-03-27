@@ -40,7 +40,7 @@ const gameModule = (()=>{
                 playerBoard.classList.remove('disabled');
                 computerBoard.classList.remove('disabled');
                 gameStartedText.textContent = "Game Started!";
-                playerTurnText.textContent = "Player's Turn";
+                playerTurnText.textContent = "Player 1's Turn";
                 pressStartText.style.visibility = "hidden";
                 startBtns.classList.add('disabled');
                 startBtns.remove();
