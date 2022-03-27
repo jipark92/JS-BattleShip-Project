@@ -10,48 +10,50 @@
 </head>
 <body>
     <main class="container">
-        <header class="title">
+        <header class="title" id="animation">
             <h1>BATTLESHIP</h1>
         </header>
 
+        
+
+        <div class="against-container">
+            <button class="againstplayer-btn">Player2</button>
+            <h3>  OR  </h3>
+            <button class="againstcpu-btn">Broken Bot</button>
+        </div>
+      
+    </div>
+
         <div class="board-container">
             <div class="player">
-                <p>Player</p>
+                <p id="animation">Player 1</p>
                 <div class="player-board"></div>
             </div>
 
             <div class="computer">
-                <p>Computer</p>
+                <p class="player2-text" id="animation">__________</p>
                 <div class="computer-board"></div>
             </div>
+
+            
         </div>  
 
         <div class="button-container">
+            
             <button class="random-btn">Random</button>
             <button class="start-btn">Start</button>
             <button class="reset-btn">Reset</button>
-        </div>
-
-        <div class="game-info-container">
-            <div class="game-status">
-                <h2 class="lost"></h2>
-                <h2 class="win"></H2>
-                <h2 class="hit-text"></h2>
-                <h2 class="miss-text"></h2>
-                <h2 class="press-start"></h2>
-                <h2 class="game-started"></h2>
-                <h2 class="player-turn"></h2>
-                <h2 class="press-restart"></h2>
-            </div>
+            
         </div>
 
         <div class="instruction-container">
-            <h3 class="instruct">Instruction</h3>
-            <p class="instruct">.</p>
-            <p class="instruct">.</p>
-            <p class="instruct">.</p>
-            <h4 class="instruct">Press RANDOM to set up your randomized ship location</h4>
-            <h4 class="instruct">Then press START to start the game!</h4>
+            <div class="directions-container">
+                <h3 class="instruct">*Instruction:</h3>
+                <h4 class="instruct">1. Pick your opponent</h4>
+                <h4 class="instruct">2. Press RANDOM to set up your randomized ship location</h4>
+                <h4 class="instruct">3. Press START to start the game!</h4>
+                <h5 class="instruct">(Press Reset to pick your opponent again)</h5>
+            </div>
             <div class="instruction">
                 <p>Indicators: </p>
                 <p style="color:red">Red = Hit</p>    
@@ -59,6 +61,24 @@
                 <p style="color:rgb(71, 63, 63)">Gray = Ships</p>    
             </div>
         </div>
+
+        <div class="game-info-container">
+            <div class="game-status">
+                <h3>Status:</h3>
+                <h2 class="lost win press-start player-turn press-restart"></h2>
+                <!-- <h2 class="win"></H2> -->
+                <h2 class="hit-text"></h2>
+                <h2 class="miss-text"></h2>
+                <!-- <h2 class="press-start"></h2>  -->
+                <h2 class="game-started"></h2>
+                <!-- <h2 class="player-turn"></h2> -->
+                <!-- <h2 class="press-restart"></h2> -->
+            </div>
+        </div>
+
+        <footer class="water-container" id="animation-2">
+            <img src="water.png">
+        </footer>
     </main>
 </body>
 </html>
