@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BattleShip Game Project</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js" defer></script>
+</head>
+<body>
+    <main class="container">
+        <canvas></canvas>
+
+        <header class="title" id="animation">
+            <h1>BATTLESHIP</h1>
+        </header>
+
+        <div class="against-container">
+            <button class="againstplayer-btn">Player 2</button>
+            <h3>OR</h3>
+            <button class="againstcpu-btn">Broken Bot</button>
+        </div>
+
+        <div class="board-container">
+            <div class="player">
+                <p id="animation">Player 1</p>
+                <div class="player-board"></div>
+            </div>
+
+            <div class="computer">
+                <p class="player2-text" id="animation">__________</p>
+                <div class="computer-board"></div>
+            </div>
+        </div>  
+
+        <div class="button-container">
+            <button class="random-btn">Random</button>
+            <button class="start-btn">Start</button>
+            <button class="reset-btn">Reset</button>
+        </div>
+
+        <div class="instruction-container">
+            <div class="directions-container">
+                <h3 class="instruct">*Instruction:</h3>
+                <h4 class="instruct">1. Pick your opponent</h4>
+                <h4 class="instruct">2. Press RANDOM to set your ships at randomized spot.</h4>
+                <h4 class="instruct">3. Press START to start the game!</h4>
+                <h5 class="instruct">(Press Reset to pick your opponent again)</h5>
+            </div>
+            <div class="instruction">
+                <p>Indicators: </p>
+                <p style="color:red">Red = Hit</p>    
+                <p style="color:rgb(0, 0, 253)">Blue = Miss</p>
+                <p style="color:rgb(71, 63, 63)">Gray = Ships</p>    
+            </div>
+        </div>
+
+        <div class="game-info-container">
+            <div class="game-status">
+                <h3>Status:</h3>
+                <h2 class="win-lost"></h2>
+                <h4 class="press-start"></h4> 
+                <h4 class="game-started"></h4>
+                <h4 class="player-turn"></h4>
+                <h4 class="pick"></h4>
+            </div>
+            <div class="log-container">
+                <h3 class="log">Action Log: </h3>
+                <div class="log-list">
+                </div>
+            </div>
+        </div>
+
+        <footer class="water-container" id="animation-2">
+            <img src="water.png">
+        </footer>
+    </main>
+
+</body>
+</html>
