@@ -91,10 +91,9 @@ const gameModule = (()=>{
                         computerDiv.style.backgroundColor = "red";
                         computerDiv.textContent = hitMarker;
                         playerTurnText.textContent = "Computer's Turn";
-                        enemyShipHitText();
-                        logLists();
+                        // enemyShipHitText();
+                        logLists("Player 1: Enemy Ship Hit!");
                         userList[1].hp--;
-                        console.log(userList[1].hp, "enemy hp");
                         playerTurn = false;
                         opponentTurn = true;
                         computerRandomAttack()
@@ -111,14 +110,12 @@ const gameModule = (()=>{
                     } else {
                         computerDiv.style.backgroundColor = "blue";
                         computerDiv.textContent = "2";
-                        missText.textContent = "PLAYER MISSED!";
-                        logLists();
-
+                        logLists("Player 1: Missed!")
                         missText.style.color = "blue";
                         playerTurnText.textContent = "Computer's Turn";
-                        setTimeout(() => {
-                            missText.textContent = "";
-                        }, 3000);
+                        // setTimeout(() => {
+                        //     missText.textContent = "";
+                        // }, 3000);
                         playerTurn = false;
                         opponentTurn = true;
                         computerRandomAttack();
@@ -144,9 +141,9 @@ const gameModule = (()=>{
                         computerDiv.style.backgroundColor = "red";
                         computerDiv.textContent = hitMarker;
                         playerTurnText.textContent = "Player 2's Turn";
-                        enemyShipHitText();
+                        logLists("Player 1: Enemy Ship Hit!")
+                        // enemyShipHitText();
                         userList[1].hp--;
-                        console.log(userList[1].hp, "enemy hp");
                         playerTurn = false;
                         opponentTurn = true;
                         if (userList[1].hp === 0){
@@ -161,12 +158,13 @@ const gameModule = (()=>{
                     } else {
                         computerDiv.style.backgroundColor = "blue";
                         computerDiv.textContent = "2"
-                        missText.textContent = "PLAYER 1 MISSED!";
+                        logLists("Player 1: Missed!")
+                        // missText.textContent = "PLAYER 1 MISSED!";
                         missText.style.color = "blue";
                         playerTurnText.textContent = "Player 2's Turn";
-                        setTimeout(() => {
-                            missText.textContent = "";
-                        }, 2500);
+                        // setTimeout(() => {
+                        //     missText.textContent = "";
+                        // }, 2500);
                         playerTurn = false;
                         opponentTurn = true;
                     } 
@@ -188,23 +186,25 @@ const gameModule = (()=>{
                 return;
             } else {
             playerDivs[randomAttack].style.backgroundColor = "blue";
-            missText.textContent = "COMPUTER MISSED!";
-            setTimeout(() => {
-                missText.textContent = "";
-            }, 2500);
+            logLists("Computer: Missed!")
+
+            // missText.textContent = "COMPUTER MISSED!";
+            // setTimeout(() => {
+            //     missText.textContent = "";
+            // }, 2500);
             playerTurn = true;
             opponentTurn = false;
             }
             if (playerDivs[randomAttack].textContent === userList[0].marker){
                 playerDivs[randomAttack].style.backgroundColor = "red";
-                hitText.textContent = "COMPUTER HIT";
-                setTimeout(() => {
-                    hitText.textContent = "";
-                }, 2500);
+                logLists("Computer: Player 1 Ship Hit!")
+                // hitText.textContent = "COMPUTER HIT";
+                // setTimeout(() => {
+                //     hitText.textContent = "";
+                // }, 2500);
                 playerDivs[randomAttack].textContent = hitMarker;
-                playerShipHitText();
+                // playerShipHitText();
                 userList[0].hp--;
-                console.log(userList[0].hp, "player hp");
                 if(userList[0].hp === 0){
                     loseText();
                     gameStartedText.style.visibility = "hidden";
@@ -226,12 +226,11 @@ const gameModule = (()=>{
                         playerDiv.style.backgroundColor = "red";
                         playerDiv.textContent = hitMarker;
                         playerTurnText.textContent = "Player 1's Turn";
-                        playerShipHitText();
+                        // playerShipHitText();
+                        logLists("Player 2: Player 1 Ship Hit!")
                         userList[0].hp--;
-                        console.log(userList[0].hp)
                         opponentTurn = false;
                         playerTurn = true;
-                        console.log(opponentTurn, playerTurn);
                     if (userList[0].hp === 0){
                         loseText();
                         gameStartedText.style.visibility = "hidden";
@@ -241,12 +240,14 @@ const gameModule = (()=>{
                     return;
                 } else {
                     playerDiv.style.backgroundColor = "blue";
-                    missText.textContent = "PLAYER 2 MISSED!";
+                    // missText.textContent = "PLAYER 2 MISSED!";
+                    logLists("Player 2: Missed!")
+
                     missText.style.color = "blue";
                     playerTurnText.textContent = "Player 1's Turn";
-                    setTimeout(() => {
-                        missText.textContent = "";
-                    }, 2500);
+                    // setTimeout(() => {
+                    //     missText.textContent = "";
+                    // }, 2500);
                     opponentTurn = false;
                     playerTurn = true;
                 } 
@@ -335,6 +336,15 @@ const gameModule = (()=>{
     };
     playerShipPosition(randomGenerator());
 
+    //creates log of the game.
+    const logLists = (str) => {
+        const logContainer = document.querySelector('.log-list');
+        const logs = document.createElement('p');
+        logs.setAttribute('class', 'logLists')
+        logContainer.appendChild(logs);
+        logs.textContent = str
+    }
+
     const playerShipHitText = () =>{
         hitText.textContent = "PLAYER SHIP HIT!";
         hitText.style.color = "red"
@@ -406,13 +416,7 @@ const gameModule = (()=>{
     };
 
 
-    const logLists = () => {
-        const logContainer = document.querySelector('.log-list');
-        const logs = document.createElement('p');
-        logs.setAttribute('class', 'logLists')
-        logContainer.appendChild(logs);
-        logs.textContent = "testing"
-    }
+
 ////////////////////////
 ////MAKE PLAYER SHIP////
 ////////////////////////
