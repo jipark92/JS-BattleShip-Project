@@ -15,7 +15,7 @@ body {
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
 }
 
@@ -146,7 +146,7 @@ body {
 
 .againstcpu-btn {
     min-height: 2rem;
-    width: 7rem;
+    width: 8rem;
     font-size: 1.2rem;
     font-weight: 1000;
     border: 2px solid blue;
@@ -197,7 +197,7 @@ body {
 .instruction-container{
     display: flex;
     justify-content: space-evenly;
-    min-width: 680px;
+    min-width: 10%;
 }
 
 .instruct {
@@ -221,8 +221,7 @@ body {
 }
 
 .water-container{
-    position:absolute;
-    top: 90%;
+    margin-top: 14rem;
     width: 100vw;
     height: 20vh;
 }
