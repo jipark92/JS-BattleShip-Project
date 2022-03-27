@@ -14,6 +14,7 @@ const gameModule = (()=>{
     const playerTurnText = document.querySelector('.player-turn');
     const randomBtns = document.querySelector('.random-btn')
     const instructions = document.querySelectorAll('.instruct');
+    const directionContainer = document.querySelector('.directions-container');
 
     let hitMarker = 1;
     let userList = [];
@@ -41,7 +42,8 @@ const gameModule = (()=>{
                 computerBoard.classList.remove('disabled');
                 gameStartedText.textContent = "Game Started!";
                 playerTurnText.textContent = "Player 1's Turn";
-                pressStartText.style.visibility = "hidden";
+                pressStartText.remove();
+                directionContainer.remove();
                 startBtns.classList.add('disabled');
                 startBtns.remove();
                 lost.textContent = "";
@@ -90,6 +92,7 @@ const gameModule = (()=>{
                         computerDiv.textContent = hitMarker;
                         playerTurnText.textContent = "Computer's Turn";
                         enemyShipHitText();
+                        logLists();
                         userList[1].hp--;
                         console.log(userList[1].hp, "enemy hp");
                         playerTurn = false;
@@ -109,6 +112,8 @@ const gameModule = (()=>{
                         computerDiv.style.backgroundColor = "blue";
                         computerDiv.textContent = "2";
                         missText.textContent = "PLAYER MISSED!";
+                        logLists();
+
                         missText.style.color = "blue";
                         playerTurnText.textContent = "Computer's Turn";
                         setTimeout(() => {
@@ -164,9 +169,6 @@ const gameModule = (()=>{
                         }, 2500);
                         playerTurn = false;
                         opponentTurn = true;
-                        if (computerDiv.textContent === "2"){
-                            return;
-                        }
                     } 
                     
                 }
@@ -398,10 +400,19 @@ const gameModule = (()=>{
         const playerDivs = document.querySelectorAll('.player-grid');
         if(playerVsPlayer2){
             for (let i = 0; i < playerDivs.length; i++){
-                playerDivs[i].style.backgroundColor = "beige";
+                playerDivs[i].style.backgroundColor = "";
             }
         } 
     };
+
+
+    const logLists = () => {
+        const logContainer = document.querySelector('.log-list');
+        const logs = document.createElement('p');
+        logs.setAttribute('class', 'logLists')
+        logContainer.appendChild(logs);
+        logs.textContent = "testing"
+    }
 ////////////////////////
 ////MAKE PLAYER SHIP////
 ////////////////////////
@@ -580,7 +591,7 @@ const gameModule = (()=>{
             computerDivs[28].textContent = userList[1].marker;
             if (computerDivs[i].textContent === userList[1].marker){
                 //hide computer ship so player doesnt know where it is
-                computerDivs[i].style.backgroundColor = ""
+                computerDivs[i].style.backgroundColor = "gray"
             }
         }
     };
@@ -616,7 +627,7 @@ const gameModule = (()=>{
             computerDivs[95].textContent = userList[1].marker;
             if (computerDivs[i].textContent === userList[1].marker){
                 //hide computer ship so player doesnt know where it is
-                computerDivs[i].style.backgroundColor = "";
+                computerDivs[i].style.backgroundColor = "gray";
             }
         }
     };
@@ -652,7 +663,7 @@ const gameModule = (()=>{
             computerDivs[99].textContent = userList[1].marker;
             if (computerDivs[i].textContent === userList[1].marker){
                 //hide computer ship so player doesnt know where it is
-                computerDivs[i].style.backgroundColor = "";
+                computerDivs[i].style.backgroundColor = "gray";
             }
         }
     };
@@ -688,7 +699,7 @@ const gameModule = (()=>{
             computerDivs[72].textContent = userList[1].marker;
             if (computerDivs[i].textContent === userList[1].marker){
                 //hide computer ship so player doesnt know where it is
-                computerDivs[i].style.backgroundColor = "";
+                computerDivs[i].style.backgroundColor = "gray";
             }
         }
     };
