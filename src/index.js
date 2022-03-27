@@ -262,7 +262,6 @@ const gameModule = (()=>{
         const againstComputerBtns = document.querySelector('.againstcpu-btn');
         const player2Name = document.querySelector('.player2-text');
         const againstContainer = document.querySelector('.against-container');
-        const playerDivs = document.querySelectorAll('.player-grid');
 
         againstPlayerBtns.addEventListener('click',()=>{
             pick.textContent = "Chose Against Player 2.";
@@ -388,6 +387,28 @@ const gameModule = (()=>{
         logContainer.appendChild(logs);
         logs.textContent = str;
     };
+
+    const preventClickSameSpot = () => {
+        if (computerDiv.textContent === "2"){
+                return;
+        }
+        if (computerDiv.textContent === "1"){
+                return;
+        }
+        if (playerDiv.textContent === "2"){
+            return;
+        }
+        if (playerDiv.textContent === "1"){
+            return;
+        }
+        if (playerDivs[randomAttack].textContent === "2"){
+            return;
+        }
+        if (playerDivs[randomAttack].textContent === "1"){
+            return;
+        }
+        
+    }
 
     //bubble animation function
     const wallAnimationFunction = () => {
