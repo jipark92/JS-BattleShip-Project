@@ -175,11 +175,15 @@ const gameModule = (()=>{
             } else {
             playerDivs[randomAttack].style.backgroundColor = "blue";
             logLists("Computer: Missed!");
+            playerTurnText.textContent = "Player 1's Turn";
+
             playerTurn = true;
             opponentTurn = false;
             }
             if (playerDivs[randomAttack].textContent === userList[0].marker){
                 playerDivs[randomAttack].style.backgroundColor = "red";
+                playerTurnText.textContent = "Player 1's Turn";
+
                 logLists("Computer: Player 1 Ship Hit!")
                 playerDivs[randomAttack].textContent = hitMarker;
                 userList[0].hp--;
