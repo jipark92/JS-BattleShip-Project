@@ -13,6 +13,7 @@ const gameModule = (()=>{
     const randomBtns = document.querySelector('.random-btn')
     const instructions = document.querySelectorAll('.instruct');
     const directionContainer = document.querySelector('.directions-container');
+    const container = document.querySelector('.container');
 
     let hitMarker = 1;
     let userList = [];
@@ -364,6 +365,39 @@ const gameModule = (()=>{
         logContainer.appendChild(logs);
         logs.textContent = str;
     };
+
+    const wallAnimationFunction = () => {
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        console.log('clicked')
+        
+        const WIDTH = document.documentElement.clientWidth;
+        const HEIGHT = document.documentElement.clientHeight;
+        
+        canvas.width = WIDTH;
+        canvas.height = HEIGHT;
+        
+        function random(number) {
+            return Math.floor(Math.random()*number);
+        }
+        
+        function draw() {
+            ctx.clearRect(0,0,WIDTH,HEIGHT);
+            for (let i = 0; i < 25; i++) {
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(0,0,253,0.1)';
+            ctx.arc(random(WIDTH), random(HEIGHT), random(25), 0, 2 * Math.PI);
+            ctx.fill();
+            }
+        }
+        return{draw}
+    }
+    
+    const bodyAnimation = () => {
+        container.addEventListener('click',wallAnimationFunction().draw)
+    }
+    bodyAnimation();
 
 ////////////////////////
 ////MAKE PLAYER SHIP////
