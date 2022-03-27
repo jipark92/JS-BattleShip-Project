@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BattleShip Game Project</title>
     <link rel="stylesheet" href="style.css">
-    <script src="index.js" defer></script>
+    <script src="main.js" defer></script>
 </head>
 <body>
     <main class="container">
@@ -15,11 +15,10 @@
         </header>
 
         <div class="against-container">
-            <button class="againstplayer-btn">Player2</button>
+            <button class="againstplayer-btn">Player 2</button>
             <h3>  OR  </h3>
             <button class="againstcpu-btn">Broken Bot</button>
         </div>
-    </div>
 
         <div class="board-container">
             <div class="player">
@@ -58,13 +57,16 @@
         <div class="game-info-container">
             <div class="game-status">
                 <h3>Status:</h3>
-                <h2 class="lost"></h2>
-                <h2 class="win"></H2>
-                <h2 class="hit-text"></h2>
-                <h2 class="miss-text"></h2>
-                <h2 class="press-start"></h2> 
-                <h2 class="game-started"></h2>
-                <h2 class="player-turn"></h2>
+                <h2 class="win-lost"></h2>
+                <h4 class="press-start"></h4> 
+                <h4 class="game-started"></h4>
+                <h4 class="player-turn"></h4>
+                <h4 class="pick"></h4>
+            </div>
+            <div class="log-container">
+                <h3 class="log">Action Log: </h3>
+                <div class="log-list">
+                </div>
             </div>
         </div>
 
