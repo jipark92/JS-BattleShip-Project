@@ -23,6 +23,7 @@ const gameModule = (()=>{
     let opponentTurn = false;
     let playerVsPlayer2 = false;
 
+    //disables board and some buttons on load.
     const disabledBoard = () =>{
         window.addEventListener('DOMContentLoaded',()=>{
             startBtns.classList.add('disabled')
@@ -33,6 +34,7 @@ const gameModule = (()=>{
     };
     disabledBoard();
 
+    //start button starts the game.
     const startGame = () => {
         startBtns.addEventListener('click',(e)=>{
             e.preventDefault();
@@ -61,6 +63,7 @@ const gameModule = (()=>{
     }
     addUsers();
 
+    //make player grid
     const makePlayerGrid = (col, row) => {
         for (let i = 0; i < col * row; i++){
             const div = document.createElement('div');
@@ -70,6 +73,7 @@ const gameModule = (()=>{
     };
     makePlayerGrid(10,10);
 
+    //make enemy grid
     const makeComputerGrid = (col, row) => {
         for (let i = 0; i < col * row; i++){
             const div = document.createElement('div');
@@ -87,12 +91,9 @@ const gameModule = (()=>{
         computerDivs.forEach((computerDiv)=>{
             computerDiv.addEventListener('click',()=>{
                 computerRandomAttack()
-                if (computerDiv.textContent === "2"){
-                    return;
-                }
-                if (computerDiv.textContent === "1"){
-                    return;
-                }
+                //prevent same spot click
+                if (computerDiv.textContent === "2")return;
+                if (computerDiv.textContent === "1")return;
                 if(playerTurn && !opponentTurn){
                     if (computerDiv.textContent === userList[1].marker){
                         computerDiv.style.backgroundColor = "red";
@@ -135,12 +136,9 @@ const gameModule = (()=>{
 
         computerDivs.forEach((computerDiv)=>{
             computerDiv.addEventListener('click',()=>{
-                if (computerDiv.textContent === "2"){
-                    return;
-                }
-                if (computerDiv.textContent === "1"){
-                    return;
-                }
+                //prevent same spot click
+                if (computerDiv.textContent === "2")return;
+                if (computerDiv.textContent === "1")return;
                 if(playerTurn && !opponentTurn){
                     if (computerDiv.textContent === userList[1].marker){
                         computerDiv.style.backgroundColor = "red";
@@ -173,19 +171,15 @@ const gameModule = (()=>{
         })
     };
 
-    //computer
+    //computer makes random attack
     const computerRandomAttack = () => {
         const playerDivs = document.querySelectorAll('.player-grid');
         const gameStartedText = document.querySelector('.game-started');
 
         let randomAttack = Math.floor(Math.random()*100);
-
-        if (playerDivs[randomAttack].textContent === "2"){
-            return;
-        }
-        if (playerDivs[randomAttack].textContent === "1"){
-            return;
-        }
+        //prevent same spot click
+        if (playerDivs[randomAttack].textContent === "2")return;
+        if (playerDivs[randomAttack].textContent === "1")return
 
         if (opponentTurn){
             if(playerDivs[randomAttack].textContent === "1"){
@@ -194,7 +188,6 @@ const gameModule = (()=>{
             playerDivs[randomAttack].style.backgroundColor = "blue";
             logLists("Computer: Missed!");
             playerTurnText.textContent = "Player 1's Turn";
-
             playerTurn = true;
             opponentTurn = false;
             }
@@ -221,12 +214,9 @@ const gameModule = (()=>{
         
         playerDivs.forEach((playerDiv)=>{
             playerDiv.addEventListener('click',()=>{
-                if (playerDiv.textContent === "2"){
-                    return;
-                }
-                if (playerDiv.textContent === "1"){
-                    return;
-                }
+                if (playerDiv.textContent === "2")return;
+                if (playerDiv.textContent === "1")return;
+                
                 if(opponentTurn){
                     if (playerDiv.textContent === userList[0].marker){
                         playerDiv.style.backgroundColor = "red";
@@ -256,6 +246,7 @@ const gameModule = (()=>{
         })
     };
 
+    //select player 2 or computer
     const againstWhoFunction = () =>{
         const againstPlayerBtns = document.querySelector('.againstplayer-btn');
         const againstComputerBtns = document.querySelector('.againstcpu-btn');
@@ -287,6 +278,7 @@ const gameModule = (()=>{
     };
     againstWhoFunction();
 
+    //random number generator to see which ship preset gets placed.
     const randomGenerator = () =>{
         return Math.floor(Math.random() * 4); 
     };
@@ -332,6 +324,7 @@ const gameModule = (()=>{
     };
     playerShipPosition(randomGenerator());
 
+    //reset button
     const resetButton = () => {
         resetBtns.addEventListener('click',()=>{
             console.log('refreshed');
@@ -340,6 +333,7 @@ const gameModule = (()=>{
     };
     resetButton();
 
+    //pause everything after game ends.
     const pauseBoard = () => {
         ready = false;
         playerBoard.classList.add('disabled');
@@ -348,21 +342,25 @@ const gameModule = (()=>{
         playerTurnText.textContent = "";
     };
 
+    //shows text press start in status box.
     const startInstruction = () =>{
         const pressStartText = document.querySelector('.press-start');
         pressStartText.textContent = "Press Start Button";
     };
 
+    //remove instruction on game start
     const hideInstruction = (instructions) =>{
         instructions.forEach((instruction)=>{
             instruction.style.visibility = "hidden";
         })
     };
 
+    //disable anything function
     const disableRndmBtns = (randomBtns) => {
         randomBtns.classList.add('disabled');
     };
 
+    //hide player ships if its player vs player 2
     const hidePlayerScreen = () => {
         const playerDivs = document.querySelectorAll('.player-grid');
         if(playerVsPlayer2){
@@ -372,6 +370,7 @@ const gameModule = (()=>{
         } 
     };
 
+    //shows win or lose text.
     const winOrLostText = (str, color) =>{
         const winOrLoseText = document.querySelector('.win-lost');
         winOrLoseText.style.color = color;
