@@ -100,8 +100,8 @@ const gameModule = (()=>{
                         computerDiv.style.backgroundColor = "red";
                         computerDiv.textContent = hitMarker;
                         playerTurnText.textContent = "Computer's Turn";
-                        logLists("Player 1: Enemy Ship Hit!");
                         userList[1].hp--;
+                        logLists("Player 1: Enemy Ship Hit!");
                         takeTurns();
                         computerRandomAttack();
                         if (userList[1].hp === 0){
@@ -142,8 +142,8 @@ const gameModule = (()=>{
                         computerDiv.style.backgroundColor = "red";
                         computerDiv.textContent = hitMarker;
                         playerTurnText.textContent = "Player 2's Turn";
-                        logLists("Player 1: Enemy Ship Hit!");
                         userList[1].hp--;
+                        logLists("Player 1: Enemy Ship Hit!");
                         takeTurns();
                         if (userList[1].hp === 0){
                             gameStartedText.style.visibility = "hidden";
@@ -216,8 +216,8 @@ const gameModule = (()=>{
                         playerDiv.style.backgroundColor = "red";
                         playerDiv.textContent = hitMarker;
                         playerTurnText.textContent = "Player 1's Turn";
-                        logLists("Player 2: Player 1 Ship Hit!")
                         userList[0].hp--;
+                        logLists("Player 2: Player 1 Ship Hit!")
                         enemyTakeTurns();
                     if (userList[0].hp === 0){
                         gameStartedText.style.visibility = "hidden";
