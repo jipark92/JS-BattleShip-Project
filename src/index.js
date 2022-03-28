@@ -63,8 +63,7 @@ const gameModule = (()=>{
     const addUsers = () => {
         const player = userFactory("Player", "X", 19);
         const computer = userFactory("Computer", "O", 19);
-        userList.push(player);
-        userList.push(computer);
+        userList.push(player, computer);
     };
     addUsers();
 
@@ -105,7 +104,6 @@ const gameModule = (()=>{
                         takeTurns();
                         computerRandomAttack();
                         if (userList[1].hp === 0){
-                            gameStartedText.style.visibility = "hidden";
                             winOrLostText("YOU WON!", "blue");
                             pauseBoard();
                         } 
@@ -139,7 +137,6 @@ const gameModule = (()=>{
                         logLists("Player 1: Enemy Ship Hit!");
                         takeTurns();
                         if (userList[1].hp === 0){
-                            gameStartedText.style.visibility = "hidden";
                             winOrLostText("YOU WON!", "blue");
                             pauseBoard();
                         } 
@@ -180,12 +177,11 @@ const gameModule = (()=>{
                 playerDivs[randomAttack].textContent = hitMarker;
                 userList[0].hp--;
                 if(userList[0].hp === 0){
-                    gameStartedText.style.visibility = "hidden";
                     winOrLostText("YOU LOST!", "red")
                     pauseBoard();
                 }
             } 
-        } 
+        }
     };
 
     //player 2
@@ -203,7 +199,6 @@ const gameModule = (()=>{
                         logLists("Player 2: Player 1 Ship Hit!");
                         enemyTakeTurns();
                     if (userList[0].hp === 0){
-                        gameStartedText.style.visibility = "hidden";
                         winOrLostText("YOU LOST!", "red");
                         pauseBoard();
                     } 
@@ -225,25 +220,13 @@ const gameModule = (()=>{
         againstPlayerBtns.addEventListener('click',()=>{
             playerVsPlayer();
             player2AttackMarker();
-            pick.textContent = "Chose Against Player 2.";
-            player2Name.textContent = "Player 2";
-            againstPlayerBtns.classList.add('disabled');
-            againstComputerBtns.classList.add('disabled');
-            randomBtns.classList.remove('disabled');
-            startBtns.classList.remove('disabled');
-            againstContainer.remove();
+            removeButtons("Player 2");
             playerVsPlayer2 = true;
         })
         //computer button
         againstComputerBtns.addEventListener('click',()=>{
             playerVsComp();
-            pick.textContent = "Chose Against Very Bad Bot";
-            player2Name.textContent = "Very Bad Bot";
-            againstPlayerBtns.classList.add('disabled');
-            againstComputerBtns.classList.add('disabled');
-            randomBtns.classList.remove('disabled');
-            startBtns.classList.remove('disabled');
-            againstContainer.remove();
+            removeButtons("Very Bad Bot")
         })
     };
     againstWhoFunction();
@@ -260,39 +243,43 @@ const gameModule = (()=>{
             if (rndmNumb === 0){
                 makePlayerShips();
                 makeCompShips();
-                startGame();
-                disableRndmBtns(randomBtns);
-                startInstruction();
-                randomBtns.remove();
-                hidePlayerScreen();
+                setUpGame();
             } else if (rndmNumb === 1){
                 makePlayerShips2();
                 makeCompShips2();
-                startGame();
-                disableRndmBtns(randomBtns);
-                startInstruction();
-                randomBtns.remove();
-                hidePlayerScreen();
+                setUpGame();
             } else if (rndmNumb === 2){
                 makePlayerShips3();
                 makeCompShips3();
-                startGame();
-                disableRndmBtns(randomBtns);
-                startInstruction();
-                randomBtns.remove();
-                hidePlayerScreen();
+                setUpGame();
             } else if (rndmNumb === 3){
                 makePlayerShips4();
                 makeCompShips4();
-                startGame();
-                disableRndmBtns(randomBtns);
-                startInstruction();
-                randomBtns.remove();
-                hidePlayerScreen();
+                setUpGame();
             }
         })
     };
     playerShipPosition(randomGenerator());
+
+    // too many reptition in againstWhoFunction so bundling it up
+    const removeButtons = (str) => {
+        pick.textContent = `Chose Against ${str}`;
+        player2Name.textContent = str;
+        againstPlayerBtns.classList.add('disabled');
+        againstComputerBtns.classList.add('disabled');
+        randomBtns.classList.remove('disabled');
+        startBtns.classList.remove('disabled');
+        againstContainer.remove();
+    };
+
+    //too many reptition in playerShipPosition so making a function to cut all that.
+    const setUpGame = () => {
+        startGame();
+        disableRndmBtns(randomBtns);
+        startInstruction();
+        randomBtns.remove();
+        hidePlayerScreen();
+    }
 
     //show HIT text and change marks
     const player1HitSign = (playerDiv) => {
@@ -384,6 +371,7 @@ const gameModule = (()=>{
     const winOrLostText = (str, color) =>{
         winOrLoseText.style.color = color;
         winOrLoseText.textContent = str;
+        gameStartedText.style.visibility = "hidden";
     };
 
     //creates log of the game.
