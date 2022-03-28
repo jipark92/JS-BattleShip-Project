@@ -9,7 +9,7 @@ const gameModule = (()=>{
     const gameStartedText = document.querySelector('.game-started');
     const startBtns = document.querySelector('.start-btn');
     const pressStartText = document.querySelector('.press-start');
-    const playerTurnText = document.querySelector('.player-turn');
+    const whosTurnText = document.querySelector('.player-turn');
     const randomBtns = document.querySelector('.random-btn')
     const instructions = document.querySelectorAll('.instruct');
     const directionContainer = document.querySelector('.directions-container');
@@ -44,7 +44,7 @@ const gameModule = (()=>{
                 computerBoard.classList.remove('disabled');
                 startBtns.classList.add('disabled');
                 gameStartedText.textContent = "Game Started!";
-                playerTurnText.textContent = "Player 1's Turn";
+                whosTurnText.textContent = "Player 1's Turn";
                 pick.textContent = "";
                 pressStartText.remove();
                 directionContainer.remove();
@@ -97,10 +97,7 @@ const gameModule = (()=>{
                 //if player turn is true then player goes first
                 if(playerTurn && !opponentTurn){
                     if (computerDiv.textContent === userList[1].marker){
-                        computerDiv.style.backgroundColor = "red";
-                        computerDiv.textContent = hitMarker;
-                        playerTurnText.textContent = "Computer's Turn";
-                        userList[1].hp--;
+                        player2HitSign(computerDiv, "Computer")
                         logLists("Player 1: Enemy Ship Hit!");
                         takeTurns();
                         computerRandomAttack();
@@ -114,9 +111,7 @@ const gameModule = (()=>{
                         computerRandomAttack();
                         return;
                     } else {
-                        computerDiv.style.backgroundColor = "blue";
-                        computerDiv.textContent = "2";
-                        playerTurnText.textContent = "Computer's Turn";
+                        player2MissSign(computerDiv, "Computer")
                         logLists("Player 1: Missed!");
                         takeTurns();
                         computerRandomAttack();
@@ -139,10 +134,7 @@ const gameModule = (()=>{
                 //if player turn is true then player goes first
                 if(playerTurn && !opponentTurn){
                     if (computerDiv.textContent === userList[1].marker){
-                        computerDiv.style.backgroundColor = "red";
-                        computerDiv.textContent = hitMarker;
-                        playerTurnText.textContent = "Player 2's Turn";
-                        userList[1].hp--;
+                        player2HitSign(computerDiv, "Player 2");
                         logLists("Player 1: Enemy Ship Hit!");
                         takeTurns();
                         if (userList[1].hp === 0){
@@ -154,17 +146,19 @@ const gameModule = (()=>{
                         takeTurns();
                         return;
                     } else {
-                        computerDiv.style.backgroundColor = "blue";
-                        computerDiv.textContent = "2"
-                        playerTurnText.textContent = "Player 2's Turn";
+                        player2MissSign(computerDiv, "Player 2");
                         logLists("Player 1: Missed!");
                         takeTurns();
                     } 
-                    
                 }
             })
         })
     };
+
+
+
+
+
 
     //computer makes random attack
     const computerRandomAttack = () => {
@@ -181,13 +175,13 @@ const gameModule = (()=>{
                 return;
             } else {
             playerDivs[randomAttack].style.backgroundColor = "blue";
-            playerTurnText.textContent = "Player 1's Turn";
+            whosTurnText.textContent = "Player 1's Turn";
             logLists("Computer: Missed!");
             enemyTakeTurns();
             }
             if (playerDivs[randomAttack].textContent === userList[0].marker){
                 playerDivs[randomAttack].style.backgroundColor = "red";
-                playerTurnText.textContent = "Player 1's Turn";
+                whosTurnText.textContent = "Player 1's Turn";
                 logLists("Computer: Player 1 Ship Hit!")
                 playerDivs[randomAttack].textContent = hitMarker;
                 userList[0].hp--;
@@ -213,10 +207,7 @@ const gameModule = (()=>{
                 //if oponent turn is true then player goes first
                 if(opponentTurn){
                     if (playerDiv.textContent === userList[0].marker){
-                        playerDiv.style.backgroundColor = "red";
-                        playerDiv.textContent = hitMarker;
-                        playerTurnText.textContent = "Player 1's Turn";
-                        userList[0].hp--;
+                        player1HitSign(playerDiv);
                         logLists("Player 2: Player 1 Ship Hit!")
                         enemyTakeTurns();
                     if (userList[0].hp === 0){
@@ -227,9 +218,7 @@ const gameModule = (()=>{
                 } else if(playerDiv.textContent === "1"){
                     return;
                 } else {
-                    playerDiv.style.backgroundColor = "blue";
-                    playerDiv.textContent = "2";
-                    playerTurnText.textContent = "Player 1's Turn";
+                    player1MissSign(playerDiv);
                     logLists("Player 2: Missed!");
                     enemyTakeTurns();
                 } 
@@ -252,9 +241,9 @@ const gameModule = (()=>{
             player2Name.textContent = "Player 2";
             againstPlayerBtns.classList.add('disabled');
             againstComputerBtns.classList.add('disabled');
-            againstContainer.remove();
             randomBtns.classList.remove('disabled');
             startBtns.classList.remove('disabled');
+            againstContainer.remove();
             playerVsPlayer2 = true;
         })
         //computer button
@@ -264,9 +253,9 @@ const gameModule = (()=>{
             player2Name.textContent = "Very Bad Bot";
             againstPlayerBtns.classList.add('disabled');
             againstComputerBtns.classList.add('disabled');
-            againstContainer.remove();
             randomBtns.classList.remove('disabled');
             startBtns.classList.remove('disabled');
+            againstContainer.remove();
         })
     };
     againstWhoFunction();
@@ -317,10 +306,38 @@ const gameModule = (()=>{
     };
     playerShipPosition(randomGenerator());
 
-    //reset button
+    //show HIT text and change marks
+    const player1HitSign = (playerDiv) => {
+        playerDiv.style.backgroundColor = "red";
+        playerDiv.textContent = hitMarker;
+        whosTurnText.textContent = "Player 1's Turn";
+        userList[0].hp--;
+    }
+    //show MISS text and change marks
+    const player1MissSign = (playerDiv) => {
+        playerDiv.style.backgroundColor = "blue";
+        playerDiv.textContent = "2";
+        whosTurnText.textContent = "Player 1's Turn";
+    }
+
+    //show text when player 1 HIT player 2 and change marks
+    const player2HitSign = (computerDiv, turnText) => {
+        computerDiv.style.backgroundColor = "red";
+        computerDiv.textContent = hitMarker;
+        whosTurnText.textContent = `${turnText}'s Turn`;
+        userList[1].hp--;
+    };
+
+    //show text when player 1 MISS player 2 and change marks
+    const player2MissSign = (computerDiv, turnText) => {
+        computerDiv.style.backgroundColor = "blue";
+        computerDiv.textContent = "2"
+        whosTurnText.textContent = `${turnText}'s Turn`;
+    };
+
+    //reset button (refresh page lazy way)
     const resetButton = () => {
         resetBtns.addEventListener('click',()=>{
-            console.log('refreshed');
             window.location.reload();
         })
     };
@@ -332,7 +349,7 @@ const gameModule = (()=>{
         playerBoard.classList.add('disabled');
         computerBoard.classList.add('disabled');
         startBtns.classList.add('disabled');
-        playerTurnText.textContent = "";
+        whosTurnText.textContent = "";
     };
 
     //player take turns function
