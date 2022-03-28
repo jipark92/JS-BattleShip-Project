@@ -14,6 +14,7 @@ const gameModule = (()=>{
     const instructions = document.querySelectorAll('.instruct');
     const directionContainer = document.querySelector('.directions-container');
     const container = document.querySelector('.container');
+    const pick = document.querySelector('.pick');
 
     let hitMarker = 1;
     let userList = [];
@@ -255,8 +256,6 @@ const gameModule = (()=>{
         })
     };
 
-    const pick = document.querySelector('.pick');
-
     const againstWhoFunction = () =>{
         const againstPlayerBtns = document.querySelector('.againstplayer-btn');
         const againstComputerBtns = document.querySelector('.againstcpu-btn');
@@ -387,28 +386,6 @@ const gameModule = (()=>{
         logContainer.appendChild(logs);
         logs.textContent = str;
     };
-
-    const preventClickSameSpot = () => {
-        if (computerDiv.textContent === "2"){
-                return;
-        }
-        if (computerDiv.textContent === "1"){
-                return;
-        }
-        if (playerDiv.textContent === "2"){
-            return;
-        }
-        if (playerDiv.textContent === "1"){
-            return;
-        }
-        if (playerDivs[randomAttack].textContent === "2"){
-            return;
-        }
-        if (playerDivs[randomAttack].textContent === "1"){
-            return;
-        }
-        
-    }
 
     //bubble animation function
     const wallAnimationFunction = () => {
