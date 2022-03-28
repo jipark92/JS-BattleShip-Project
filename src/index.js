@@ -275,8 +275,8 @@ const gameModule = (()=>{
             playerVsPlayer2 = true;
         })
         againstComputerBtns.addEventListener('click',()=>{
-            pick.textContent = "Chose Against Broken Bot";
-            player2Name.textContent = "Broken Bot";
+            pick.textContent = "Chose Against Very Bad Bot";
+            player2Name.textContent = "Very Bad Bot";
             playerVsComp();
             againstPlayerBtns.classList.add('disabled');
             againstComputerBtns.classList.add('disabled');
