@@ -42,13 +42,13 @@ const gameModule = (()=>{
                 ready = true;
                 playerBoard.classList.remove('disabled');
                 computerBoard.classList.remove('disabled');
+                startBtns.classList.add('disabled');
                 gameStartedText.textContent = "Game Started!";
                 playerTurnText.textContent = "Player 1's Turn";
+                pick.textContent = "";
                 pressStartText.remove();
                 directionContainer.remove();
-                startBtns.classList.add('disabled');
                 startBtns.remove();
-                pick.textContent = "";
                 hideInstruction(instructions);
             }
         })
@@ -94,6 +94,7 @@ const gameModule = (()=>{
                 //prevent same spot click
                 if (computerDiv.textContent === "2")return;
                 if (computerDiv.textContent === "1")return;
+                //if player turn is true then player goes first
                 if(playerTurn && !opponentTurn){
                     if (computerDiv.textContent === userList[1].marker){
                         computerDiv.style.backgroundColor = "red";
@@ -101,29 +102,25 @@ const gameModule = (()=>{
                         playerTurnText.textContent = "Computer's Turn";
                         logLists("Player 1: Enemy Ship Hit!");
                         userList[1].hp--;
-                        playerTurn = false;
-                        opponentTurn = true;
-                        computerRandomAttack()
+                        takeTurns();
+                        computerRandomAttack();
                         if (userList[1].hp === 0){
-                            winOrLostText("YOU WON!", "blue")
                             gameStartedText.style.visibility = "hidden";
+                            winOrLostText("YOU WON!", "blue")
                             pauseBoard();
                         } 
                     } else if(computerDiv.textContent === "1"){
-                        playerTurn = false;
-                        opponentTurn = true;
+                        takeTurns();
                         computerRandomAttack();
                         return;
                     } else {
                         computerDiv.style.backgroundColor = "blue";
                         computerDiv.textContent = "2";
-                        logLists("Player 1: Missed!")
                         playerTurnText.textContent = "Computer's Turn";
-                        playerTurn = false;
-                        opponentTurn = true;
+                        logLists("Player 1: Missed!");
+                        takeTurns();
                         computerRandomAttack();
                     } 
-                    
                 }
             })
         })
@@ -139,6 +136,7 @@ const gameModule = (()=>{
                 //prevent same spot click
                 if (computerDiv.textContent === "2")return;
                 if (computerDiv.textContent === "1")return;
+                //if player turn is true then player goes first
                 if(playerTurn && !opponentTurn){
                     if (computerDiv.textContent === userList[1].marker){
                         computerDiv.style.backgroundColor = "red";
@@ -146,24 +144,21 @@ const gameModule = (()=>{
                         playerTurnText.textContent = "Player 2's Turn";
                         logLists("Player 1: Enemy Ship Hit!");
                         userList[1].hp--;
-                        playerTurn = false;
-                        opponentTurn = true;
+                        takeTurns();
                         if (userList[1].hp === 0){
-                            winOrLostText("YOU WON!", "blue")
                             gameStartedText.style.visibility = "hidden";
+                            winOrLostText("YOU WON!", "blue")
                             pauseBoard();
                         } 
                     } else if(computerDiv.textContent === "1"){
-                        playerTurn = false;
-                        opponentTurn = true;
+                        takeTurns();
                         return;
                     } else {
                         computerDiv.style.backgroundColor = "blue";
                         computerDiv.textContent = "2"
-                        logLists("Player 1: Missed!");
                         playerTurnText.textContent = "Player 2's Turn";
-                        playerTurn = false;
-                        opponentTurn = true;
+                        logLists("Player 1: Missed!");
+                        takeTurns();
                     } 
                     
                 }
@@ -180,27 +175,25 @@ const gameModule = (()=>{
         //prevent same spot click
         if (playerDivs[randomAttack].textContent === "2")return;
         if (playerDivs[randomAttack].textContent === "1")return
-
+        //if opponenent turn is true then player goes first
         if (opponentTurn){
             if(playerDivs[randomAttack].textContent === "1"){
                 return;
             } else {
             playerDivs[randomAttack].style.backgroundColor = "blue";
-            logLists("Computer: Missed!");
             playerTurnText.textContent = "Player 1's Turn";
-            playerTurn = true;
-            opponentTurn = false;
+            logLists("Computer: Missed!");
+            enemyTakeTurns();
             }
             if (playerDivs[randomAttack].textContent === userList[0].marker){
                 playerDivs[randomAttack].style.backgroundColor = "red";
                 playerTurnText.textContent = "Player 1's Turn";
-
                 logLists("Computer: Player 1 Ship Hit!")
                 playerDivs[randomAttack].textContent = hitMarker;
                 userList[0].hp--;
                 if(userList[0].hp === 0){
-                    winOrLostText("YOU LOST!", "red")
                     gameStartedText.style.visibility = "hidden";
+                    winOrLostText("YOU LOST!", "red")
                     pauseBoard();
                 }
             } 
@@ -214,9 +207,10 @@ const gameModule = (()=>{
         
         playerDivs.forEach((playerDiv)=>{
             playerDiv.addEventListener('click',()=>{
+                //prevent same spot click
                 if (playerDiv.textContent === "2")return;
                 if (playerDiv.textContent === "1")return;
-                
+                //if oponent turn is true then player goes first
                 if(opponentTurn){
                     if (playerDiv.textContent === userList[0].marker){
                         playerDiv.style.backgroundColor = "red";
@@ -224,11 +218,10 @@ const gameModule = (()=>{
                         playerTurnText.textContent = "Player 1's Turn";
                         logLists("Player 2: Player 1 Ship Hit!")
                         userList[0].hp--;
-                        opponentTurn = false;
-                        playerTurn = true;
+                        enemyTakeTurns();
                     if (userList[0].hp === 0){
-                        winOrLostText("YOU LOST!", "red")
                         gameStartedText.style.visibility = "hidden";
+                        winOrLostText("YOU LOST!", "red")
                         pauseBoard();
                     } 
                 } else if(playerDiv.textContent === "1"){
@@ -236,10 +229,9 @@ const gameModule = (()=>{
                 } else {
                     playerDiv.style.backgroundColor = "blue";
                     playerDiv.textContent = "2";
-                    logLists("Player 2: Missed!");
                     playerTurnText.textContent = "Player 1's Turn";
-                    opponentTurn = false;
-                    playerTurn = true;
+                    logLists("Player 2: Missed!");
+                    enemyTakeTurns();
                 } 
                 }
             })
@@ -252,12 +244,12 @@ const gameModule = (()=>{
         const againstComputerBtns = document.querySelector('.againstcpu-btn');
         const player2Name = document.querySelector('.player2-text');
         const againstContainer = document.querySelector('.against-container');
-
+        //player 2 button
         againstPlayerBtns.addEventListener('click',()=>{
-            pick.textContent = "Chose Against Player 2.";
-            player2Name.textContent = "Player 2";
             playerVsPlayer();
             player2AttackMarker();
+            pick.textContent = "Chose Against Player 2.";
+            player2Name.textContent = "Player 2";
             againstPlayerBtns.classList.add('disabled');
             againstComputerBtns.classList.add('disabled');
             againstContainer.remove();
@@ -265,10 +257,11 @@ const gameModule = (()=>{
             startBtns.classList.remove('disabled');
             playerVsPlayer2 = true;
         })
+        //computer button
         againstComputerBtns.addEventListener('click',()=>{
+            playerVsComp();
             pick.textContent = "Chose Against Very Bad Bot";
             player2Name.textContent = "Very Bad Bot";
-            playerVsComp();
             againstPlayerBtns.classList.add('disabled');
             againstComputerBtns.classList.add('disabled');
             againstContainer.remove();
@@ -342,6 +335,18 @@ const gameModule = (()=>{
         playerTurnText.textContent = "";
     };
 
+    //player take turns function
+    const takeTurns = () => {
+        playerTurn = false;
+        opponentTurn = true;
+    };
+
+    //enemy take turn function
+    const enemyTakeTurns = () => {
+        opponentTurn = false;
+        playerTurn = true;
+    };
+
     //shows text press start in status box.
     const startInstruction = () =>{
         const pressStartText = document.querySelector('.press-start');
@@ -410,11 +415,12 @@ const gameModule = (()=>{
             }
         }
         return{draw};
-    }
+    };
     
+    //calls for animation start
     const bodyAnimation = () => {
         container.addEventListener('click',wallAnimationFunction().draw);
-    }
+    };
     bodyAnimation();
 
 ////////////////////////
